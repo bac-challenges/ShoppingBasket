@@ -20,7 +20,7 @@
 //	OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 //	SOFTWARE.
 //
-//	ID: 4B87D144-DAA7-4976-8E83-392723B3D069
+//	ID: 9DDEEA60-A0A0-4003-946D-2E1EC4BD8EF6
 //
 //	Pkg: ShoppingBasket
 //
@@ -30,9 +30,3 @@
 //
 
 import Foundation
-
-struct State: Codable {
-	let name: String
-	let code: String
-	let rate: Float
-}
