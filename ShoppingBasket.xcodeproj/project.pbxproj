@@ -12,10 +12,11 @@
 		600129D322D0E462008B5CA7 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 600129D122D0E462008B5CA7 /* LaunchScreen.storyboard */; };
 		600129DE22D0E463008B5CA7 /* ShoppingBasketTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 600129DD22D0E463008B5CA7 /* ShoppingBasketTests.swift */; };
 		600129EA22D0E69D008B5CA7 /* BasketController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 600129E922D0E69D008B5CA7 /* BasketController.swift */; };
-		600129EC22D0E6F1008B5CA7 /* us-state-taxes.json in Resources */ = {isa = PBXBuildFile; fileRef = 600129EB22D0E6F1008B5CA7 /* us-state-taxes.json */; };
-		600129EE22D0EEED008B5CA7 /* product-list.plist in Resources */ = {isa = PBXBuildFile; fileRef = 600129ED22D0EEEC008B5CA7 /* product-list.plist */; };
+		600129EC22D0E6F1008B5CA7 /* data-source.json in Resources */ = {isa = PBXBuildFile; fileRef = 600129EB22D0E6F1008B5CA7 /* data-source.json */; };
 		600129F722D11854008B5CA7 /* State.swift in Sources */ = {isa = PBXBuildFile; fileRef = 600129F622D11854008B5CA7 /* State.swift */; };
 		600129F922D11937008B5CA7 /* Product.swift in Sources */ = {isa = PBXBuildFile; fileRef = 600129F822D11937008B5CA7 /* Product.swift */; };
+		600129FD22D1369D008B5CA7 /* FileManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 600129FC22D1369D008B5CA7 /* FileManager.swift */; };
+		600129FF22D13C9F008B5CA7 /* Discount.swift in Sources */ = {isa = PBXBuildFile; fileRef = 600129FE22D13C9F008B5CA7 /* Discount.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -38,10 +39,11 @@
 		600129DD22D0E463008B5CA7 /* ShoppingBasketTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShoppingBasketTests.swift; sourceTree = "<group>"; };
 		600129DF22D0E463008B5CA7 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		600129E922D0E69D008B5CA7 /* BasketController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = BasketController.swift; path = /Users/emile/Projects/ShoppingBasket/ShoppingBasket/BasketController.swift; sourceTree = "<absolute>"; };
-		600129EB22D0E6F1008B5CA7 /* us-state-taxes.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "us-state-taxes.json"; sourceTree = "<group>"; };
-		600129ED22D0EEEC008B5CA7 /* product-list.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "product-list.plist"; sourceTree = "<group>"; };
+		600129EB22D0E6F1008B5CA7 /* data-source.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "data-source.json"; sourceTree = "<group>"; };
 		600129F622D11854008B5CA7 /* State.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = State.swift; sourceTree = "<group>"; };
 		600129F822D11937008B5CA7 /* Product.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Product.swift; sourceTree = "<group>"; };
+		600129FC22D1369D008B5CA7 /* FileManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileManager.swift; sourceTree = "<group>"; };
+		600129FE22D13C9F008B5CA7 /* Discount.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Discount.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -116,8 +118,7 @@
 		600129EF22D0EF08008B5CA7 /* Data */ = {
 			isa = PBXGroup;
 			children = (
-				600129ED22D0EEEC008B5CA7 /* product-list.plist */,
-				600129EB22D0E6F1008B5CA7 /* us-state-taxes.json */,
+				600129EB22D0E6F1008B5CA7 /* data-source.json */,
 			);
 			path = Data;
 			sourceTree = "<group>";
@@ -142,8 +143,9 @@
 		600129F222D1003D008B5CA7 /* Model */ = {
 			isa = PBXGroup;
 			children = (
-				600129F622D11854008B5CA7 /* State.swift */,
 				600129F822D11937008B5CA7 /* Product.swift */,
+				600129FE22D13C9F008B5CA7 /* Discount.swift */,
+				600129F622D11854008B5CA7 /* State.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -151,6 +153,7 @@
 		600129F322D10049008B5CA7 /* ViewModel */ = {
 			isa = PBXGroup;
 			children = (
+				600129FC22D1369D008B5CA7 /* FileManager.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -252,8 +255,7 @@
 			files = (
 				600129D322D0E462008B5CA7 /* LaunchScreen.storyboard in Resources */,
 				600129D022D0E462008B5CA7 /* Assets.xcassets in Resources */,
-				600129EE22D0EEED008B5CA7 /* product-list.plist in Resources */,
-				600129EC22D0E6F1008B5CA7 /* us-state-taxes.json in Resources */,
+				600129EC22D0E6F1008B5CA7 /* data-source.json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -271,7 +273,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				600129FD22D1369D008B5CA7 /* FileManager.swift in Sources */,
 				600129C922D0E45B008B5CA7 /* AppDelegate.swift in Sources */,
+				600129FF22D13C9F008B5CA7 /* Discount.swift in Sources */,
 				600129F922D11937008B5CA7 /* Product.swift in Sources */,
 				600129EA22D0E69D008B5CA7 /* BasketController.swift in Sources */,
 				600129F722D11854008B5CA7 /* State.swift in Sources */,

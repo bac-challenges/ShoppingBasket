@@ -31,6 +31,8 @@
 
 import Foundation
 
-struct Product {
-	
+struct Product: Codable {
+	let name: String
+	let units: Int
+	let price: Float
 }
