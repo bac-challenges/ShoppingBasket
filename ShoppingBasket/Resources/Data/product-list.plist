@@ -1,14 +1,54 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE plist PUBLIC "-//Apple Computer//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
-<!--
-   product-list.plist
-   ShoppingBasket
-
-   Created by Emile on 06/07/2019.
-   Copyright (c) 2019 Blue Ant Corp. All rights reserved.
--->
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
-    <dict>
-    
-    </dict>
+<array>
+	<dict>
+		<key>Product A</key>
+		<string></string>
+		<key>price</key>
+		<integer>17.95</integer>
+		<key>units</key>
+		<integer>999</integer>
+	</dict>
+	<dict>
+		<key>Product B</key>
+		<string></string>
+		<key>price</key>
+		<integer>17.95</integer>
+		<key>units</key>
+		<integer>1001</integer>
+	</dict>
+	<dict>
+		<key>Product C</key>
+		<string></string>
+		<key>price</key>
+		<integer>17.95</integer>
+		<key>units</key>
+		<integer>5001</integer>
+	</dict>
+	<dict>
+		<key>Product D</key>
+		<string></string>
+		<key>price</key>
+		<integer>17.95</integer>
+		<key>units</key>
+		<integer>7001</integer>
+	</dict>
+	<dict>
+		<key>Product E</key>
+		<string></string>
+		<key>price</key>
+		<integer>17.95</integer>
+		<key>units</key>
+		<integer>10001</integer>
+	</dict>
+	<dict>
+		<key>Product F</key>
+		<string></string>
+		<key>price</key>
+		<integer>17.95</integer>
+		<key>units</key>
+		<integer>50001</integer>
+	</dict>
+</array>
 </plist>

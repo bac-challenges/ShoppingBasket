@@ -14,6 +14,8 @@
 		600129EA22D0E69D008B5CA7 /* BasketController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 600129E922D0E69D008B5CA7 /* BasketController.swift */; };
 		600129EC22D0E6F1008B5CA7 /* us-state-taxes.json in Resources */ = {isa = PBXBuildFile; fileRef = 600129EB22D0E6F1008B5CA7 /* us-state-taxes.json */; };
 		600129EE22D0EEED008B5CA7 /* product-list.plist in Resources */ = {isa = PBXBuildFile; fileRef = 600129ED22D0EEEC008B5CA7 /* product-list.plist */; };
+		600129F722D11854008B5CA7 /* State.swift in Sources */ = {isa = PBXBuildFile; fileRef = 600129F622D11854008B5CA7 /* State.swift */; };
+		600129F922D11937008B5CA7 /* Product.swift in Sources */ = {isa = PBXBuildFile; fileRef = 600129F822D11937008B5CA7 /* Product.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -38,6 +40,8 @@
 		600129E922D0E69D008B5CA7 /* BasketController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = BasketController.swift; path = /Users/emile/Projects/ShoppingBasket/ShoppingBasket/BasketController.swift; sourceTree = "<absolute>"; };
 		600129EB22D0E6F1008B5CA7 /* us-state-taxes.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "us-state-taxes.json"; sourceTree = "<group>"; };
 		600129ED22D0EEEC008B5CA7 /* product-list.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "product-list.plist"; sourceTree = "<group>"; };
+		600129F622D11854008B5CA7 /* State.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = State.swift; sourceTree = "<group>"; };
+		600129F822D11937008B5CA7 /* Product.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Product.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -80,7 +84,11 @@
 			isa = PBXGroup;
 			children = (
 				600129C822D0E45B008B5CA7 /* AppDelegate.swift */,
-				600129E922D0E69D008B5CA7 /* BasketController.swift */,
+				600129F122D1002D008B5CA7 /* View */,
+				600129F222D1003D008B5CA7 /* Model */,
+				600129F322D10049008B5CA7 /* ViewModel */,
+				600129F422D10055008B5CA7 /* Service */,
+				600129F522D10065008B5CA7 /* Utils */,
 				600129E822D0E4CB008B5CA7 /* Resources */,
 			);
 			path = ShoppingBasket;
@@ -108,8 +116,8 @@
 		600129EF22D0EF08008B5CA7 /* Data */ = {
 			isa = PBXGroup;
 			children = (
-				600129EB22D0E6F1008B5CA7 /* us-state-taxes.json */,
 				600129ED22D0EEEC008B5CA7 /* product-list.plist */,
+				600129EB22D0E6F1008B5CA7 /* us-state-taxes.json */,
 			);
 			path = Data;
 			sourceTree = "<group>";
@@ -121,6 +129,44 @@
 				600129D122D0E462008B5CA7 /* LaunchScreen.storyboard */,
 			);
 			path = Assets;
+			sourceTree = "<group>";
+		};
+		600129F122D1002D008B5CA7 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				600129E922D0E69D008B5CA7 /* BasketController.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		600129F222D1003D008B5CA7 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				600129F622D11854008B5CA7 /* State.swift */,
+				600129F822D11937008B5CA7 /* Product.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		600129F322D10049008B5CA7 /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		600129F422D10055008B5CA7 /* Service */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Service;
+			sourceTree = "<group>";
+		};
+		600129F522D10065008B5CA7 /* Utils */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Utils;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -226,7 +272,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				600129C922D0E45B008B5CA7 /* AppDelegate.swift in Sources */,
+				600129F922D11937008B5CA7 /* Product.swift in Sources */,
 				600129EA22D0E69D008B5CA7 /* BasketController.swift in Sources */,
+				600129F722D11854008B5CA7 /* State.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
