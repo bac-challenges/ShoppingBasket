@@ -20,7 +20,7 @@
 //	OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 //	SOFTWARE.
 //
-//	ID: 4B87D144-DAA7-4976-8E83-392723B3D069
+//	ID: D9E38171-94B3-48ED-A5DF-314FCF160022
 //
 //	Pkg: ShoppingBasket
 //
@@ -31,8 +31,30 @@
 
 import Foundation
 
-struct State: Codable {
-	let name: String
-	let code: String
-	let rate: Float
+public struct FileManager {
+	
+	// Response object
+	public struct Response: Codable {
+		let states: [State]
+		let products: [Product]
+		let discounts: [Discount]
+	}
+	
+	// Singleton
+	public static let shared = FileManager()
+	
+	// Get sample data
+	public func loadJson() -> Response? {
+		if let url = Bundle.main.url(forResource: "data-source", withExtension: "json") {
+			do {
+				let data = try Data(contentsOf: url)
+				let decoder = JSONDecoder()
+				let response = try decoder.decode(Response.self, from: data)
+				return response
+			} catch {
+				print("error:\(error)")
+			}
+		}
+		return nil
+	}
 }
