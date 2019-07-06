@@ -20,37 +20,22 @@
 //	OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 //	SOFTWARE.
 //
-//	ID: 33781857-C3CC-4BC1-8DE6-C7E896E6A4C3
+//	ID: 09B53B51-8676-4751-BC4B-26D31135EFDF
 //
 //	Pkg: ShoppingBasket
 //
-//	Swift: 5.0 
+//	Swift: 5
 //
 //	MacOS: 10.15
 //
 
-import UIKit
+import Foundation
 
-class BasketController: UIViewController {
-
-	override func viewDidLoad() {
-		super.viewDidLoad()
-		
-		//
-		let response = FileManager.shared.loadJson()
-	}
+extension Formatter {
+	static let withSeparator: NumberFormatter = {
+		let formatter = NumberFormatter()
+		formatter.groupingSeparator = "."
+		formatter.numberStyle = .decimal
+		return formatter
+	}()
 }
-
-// MARK: - UI
-extension  BasketController {
-	
-	private func setupView() {
-		title = "Basket"
-		setupLayout()
-	}
-	
-	private func setupLayout() {
-		
-	}
-}
-

@@ -20,37 +20,23 @@
 //	OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 //	SOFTWARE.
 //
-//	ID: 33781857-C3CC-4BC1-8DE6-C7E896E6A4C3
+//	ID: D9C5F90E-7823-4BED-B4CA-B91D9E58D4CA
 //
 //	Pkg: ShoppingBasket
 //
-//	Swift: 5.0 
+//	Swift: 5
 //
 //	MacOS: 10.15
 //
 
-import UIKit
+import Foundation
 
-class BasketController: UIViewController {
-
-	override func viewDidLoad() {
-		super.viewDidLoad()
-		
-		//
-		let response = FileManager.shared.loadJson()
-	}
+public protocol ReusableCell {
+	static var identifier: String { get }
 }
 
-// MARK: - UI
-extension  BasketController {
-	
-	private func setupView() {
-		title = "Basket"
-		setupLayout()
-	}
-	
-	private func setupLayout() {
-		
+public extension ReusableCell {
+	static var identifier: String {
+		return String(describing: self)
 	}
 }
-
