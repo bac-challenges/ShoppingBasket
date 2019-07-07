@@ -70,13 +70,13 @@ extension BasketDataSource {
 			cell.selectionStyle = rowCase.selectionStyle
 			return cell
 		}
-		
 		return UITableViewCell(style: .value1, reuseIdentifier: nil)
 	}
 	
 	func configureProductCell(product: Product, section: Section, tableView: UITableView, indexPath: IndexPath) -> UITableViewCell {
 		
-		if let cell = configureGenericCell(section: section, tableView: tableView, indexPath: indexPath) as? BasketProductCell {
+		if let cell = tableView.dequeueReusableCell(withIdentifier: BasketProductCell.identifier,
+													for: indexPath) as? BasketProductCell {
 			cell.textLabel?.text = product.name
 			cell.detailTextLabel?.text = "$\(product.price)"
 			return cell

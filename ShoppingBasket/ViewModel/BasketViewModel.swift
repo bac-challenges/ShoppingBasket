@@ -20,7 +20,7 @@
 //	OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 //	SOFTWARE.
 //
-//	ID: 91AA6357-1F8F-4E32-B053-0B7BCC82122A
+//	ID: 5C5EE745-6C5C-4A27-B648-450A78DB54CB
 //
 //	Pkg: ShoppingBasket
 //
@@ -29,22 +29,13 @@
 //	MacOS: 10.15
 //
 
-import UIKit
+import Foundation
 
-class BasketGenericCell: UITableViewCell, ReusableCell {
+struct BasketViewModel: GenericViewModel {
 	
-	override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
-		super.init(style: .value1, reuseIdentifier: nil)
-		setupView()
-	}
+	var model: FileManager.Response
 	
-	required init?(coder aDecoder: NSCoder) {
-		super.init(coder: aDecoder)
-	}
-}
-
-// MARK: - UI
-extension  BasketGenericCell {
-	private func setupView() {
+	init(_ model: FileManager.Response) {
+		self.model = model
 	}
 }

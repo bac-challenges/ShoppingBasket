@@ -35,9 +35,29 @@ class BasketProductCell: UITableViewCell, ReusableCell {
 	
 	override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
 		super.init(style: .value1, reuseIdentifier: nil)
+		setupView()
 	}
 	
 	required init?(coder aDecoder: NSCoder) {
-		fatalError("init(coder:) has not been implemented")
+		super.init(coder: aDecoder)
+	}
+}
+
+// MARK: - Configurable
+extension BasketProductCell: Configurable {
+	func configure(_ item: Product) {
+		
+	}
+}
+
+// MARK: - UI
+extension BasketProductCell {
+	private func setupView() {
+		accessoryType = .none
+		selectionStyle = .none
+	}
+	
+	private func setupLayout() {
+		
 	}
 }

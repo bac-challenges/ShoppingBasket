@@ -28,6 +28,7 @@
 		60BDB9A022D1B8EE006214A2 /* BasketTableStructure.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60BDB99E22D1B8EE006214A2 /* BasketTableStructure.swift */; };
 		60BDB9A122D1B8EE006214A2 /* BasketDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60BDB99F22D1B8EE006214A2 /* BasketDataSource.swift */; };
 		60BDB9A322D1B92E006214A2 /* FileManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60BDB9A222D1B92E006214A2 /* FileManager.swift */; };
+		60BDB9A522D1BE85006214A2 /* BasketViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60BDB9A422D1BE85006214A2 /* BasketViewModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -66,6 +67,7 @@
 		60BDB99E22D1B8EE006214A2 /* BasketTableStructure.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BasketTableStructure.swift; sourceTree = "<group>"; };
 		60BDB99F22D1B8EE006214A2 /* BasketDataSource.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BasketDataSource.swift; sourceTree = "<group>"; };
 		60BDB9A222D1B92E006214A2 /* FileManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FileManager.swift; sourceTree = "<group>"; };
+		60BDB9A422D1BE85006214A2 /* BasketViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BasketViewModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -178,6 +180,7 @@
 		600129F322D10049008B5CA7 /* ViewModel */ = {
 			isa = PBXGroup;
 			children = (
+				60BDB9A422D1BE85006214A2 /* BasketViewModel.swift */,
 				60BDB99F22D1B8EE006214A2 /* BasketDataSource.swift */,
 				60BDB99E22D1B8EE006214A2 /* BasketTableStructure.swift */,
 			);
@@ -332,6 +335,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				60BDB99B22D1B86F006214A2 /* BasketGenericCell.swift in Sources */,
+				60BDB9A522D1BE85006214A2 /* BasketViewModel.swift in Sources */,
 				600129C922D0E45B008B5CA7 /* AppDelegate.swift in Sources */,
 				60012A1722D143B4008B5CA7 /* ReusableCell.swift in Sources */,
 				600129FF22D13C9F008B5CA7 /* Discount.swift in Sources */,
