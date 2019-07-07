@@ -57,22 +57,32 @@ extension BasketViewModel {
 		return result.formattedWithSeparator
 	}
 	
-	func unitsTotalAmount() -> String {
+	var address: String {
+		guard let state = BasketViewModel.shared.state else {
+			return "N/A"
+		}
+		return "\(state.name), \(state.code)"
+	}
+	
+	var unitsTotalAmount: String {
 		let result = Calculator.shared.unitsTotalAmount(products)
 		return result.formattedWithSeparator
 	}
 	
-	func discountAmount() -> String {
+	var discountAmount: String {
+		#warning("Use real data")
 		let result = Calculator.shared.totalAmount(10000, rate: 10)
-		return result.formattedWithSeparator
+		return "- \(result.formattedWithSeparator)"
 	}
 	
-	func taxAmount() -> String {
+	var taxAmount: String {
+		#warning("Use real data")
 		let result = Calculator.shared.taxAmount(10000, rate: 10)
-		return result.formattedWithSeparator
+		return "+ \(result.formattedWithSeparator)"
 	}
 	
-	func totalAmount() -> String {
+	var totalAmount: String {
+		#warning("Use real data")
 		let result = Calculator.shared.totalAmount(10000, rate: 10)
 		return result.formattedWithSeparator
 	}
@@ -85,6 +95,7 @@ protocol Row {
 	var selectionStyle: UITableViewCell.SelectionStyle { get }
 	var title: String { get }
 	var detail: String { get }
+	var detailColor: UIColor { get }
 }
 
 extension BasketViewModel {
@@ -134,11 +145,15 @@ extension BasketViewModel {
 		}
 		
 		var title: String {
-			return BasketViewModel.shared.state?.name ?? "N/A"
+			return "Address"
 		}
 		
 		var detail: String {
-			return BasketViewModel.shared.state?.code ?? "N/A"
+			return BasketViewModel.shared.address
+		}
+		
+		var detailColor: UIColor {
+			return .lightGray
 		}
 	}
 	
@@ -167,15 +182,23 @@ extension BasketViewModel {
 			switch self {
 			case .total: return "Total without taxes"
 			case .discount: return "Discout 5%"
-			case .tax: return "Tax 6.75%"
+			case .tax: return "Tax \(BasketViewModel.shared.state?.rate ?? 0)%"
 			}
 		}
 
 		var detail: String {
 			switch self {
-			case .total: return BasketViewModel.shared.unitsTotalAmount()
-			case .discount: return "Discout Detail"
-			case .tax: return "Tax Detail"
+			case .total: return BasketViewModel.shared.unitsTotalAmount
+			case .discount: return BasketViewModel.shared.discountAmount
+			case .tax: return BasketViewModel.shared.taxAmount
+			}
+		}
+		
+		var detailColor: UIColor {
+			switch self {
+			case .total: return .lightGray
+			case .discount: return #colorLiteral(red: 0.4648197889, green: 0.6529648304, blue: 0.5710337758, alpha: 1)
+			case .tax: return #colorLiteral(red: 0.8549019694, green: 0.250980407, blue: 0.4784313738, alpha: 1)
 			}
 		}
 	}
@@ -202,7 +225,11 @@ extension BasketViewModel {
 		}
 		
 		var detail: String {
-			return BasketViewModel.shared.totalAmount()
+			return BasketViewModel.shared.totalAmount
+		}
+		
+		var detailColor: UIColor {
+			return .lightGray
 		}
 	}
 }

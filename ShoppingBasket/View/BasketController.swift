@@ -103,10 +103,10 @@ extension BasketController: UITableViewDataSource {
 				cell.selectionStyle = row.selectionStyle
 				cell.textLabel?.text = row.title
 				cell.detailTextLabel?.text = row.detail
+				cell.detailTextLabel?.textColor = row.detailColor
 				return cell
 			}
 		}
-		
 		return UITableViewCell(style: .value1, reuseIdentifier: nil)
 	}
 }
