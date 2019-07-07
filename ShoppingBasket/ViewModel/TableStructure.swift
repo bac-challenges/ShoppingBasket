@@ -71,7 +71,7 @@ enum SectionAddress: Int, Row {
 	case total
 	
 	var identifier: String {
-		return BasketGenericCell.identifier
+		return GenericCell.identifier
 	}
 	
 	var selectionStyle: UITableViewCell.SelectionStyle {
@@ -97,7 +97,7 @@ enum SectionBreakdown: Int, Row {
 	}
 	
 	var identifier: String {
-		return BasketGenericCell.identifier
+		return GenericCell.identifier
 	}
 	
 	var selectionStyle: UITableViewCell.SelectionStyle {
@@ -123,7 +123,7 @@ enum SectionTotal: Int, Row {
 	case total
 	
 	var identifier: String {
-		return BasketGenericCell.identifier
+		return GenericCell.identifier
 	}
 	
 	var selectionStyle: UITableViewCell.SelectionStyle {

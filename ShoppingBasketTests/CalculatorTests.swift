@@ -32,7 +32,7 @@
 import XCTest
 @testable import ShoppingBasket
 
-class BasketCalculatorTests: XCTestCase {
+class CalculatorTests: XCTestCase {
 	
 	// Verify data
 	private let unitTotalAmount: Float = 1000

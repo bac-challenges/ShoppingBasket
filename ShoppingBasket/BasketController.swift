@@ -34,7 +34,7 @@ import UIKit
 class BasketController: UITableViewController {
 	
 	// Delegates
-	private lazy var dataSource = BasketDataSource()
+	private lazy var dataSource = DataSource()
 	
 	// Life cycle
 	override func viewDidLoad() {
@@ -48,8 +48,8 @@ extension  BasketController {
 	private func setupView() {
 		title = "Basket"
 		tableView = UITableView(frame: CGRect.zero, style: .grouped)
-		tableView.register(BasketGenericCell.self, forCellReuseIdentifier: BasketGenericCell.identifier)
-		tableView.register(BasketProductCell.self, forCellReuseIdentifier: BasketProductCell.identifier)
+		tableView.register(GenericCell.self, forCellReuseIdentifier: GenericCell.identifier)
+		tableView.register(ProductCell.self, forCellReuseIdentifier: ProductCell.identifier)
 		tableView.separatorStyle = .none
 		tableView.contentInsetAdjustmentBehavior = .automatic
 		tableView.rowHeight = UITableView.automaticDimension

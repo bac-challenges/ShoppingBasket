@@ -20,7 +20,7 @@
 //	OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 //	SOFTWARE.
 //
-//	ID: 91AA6357-1F8F-4E32-B053-0B7BCC82122A
+//	ID: 5C5EE745-6C5C-4A27-B648-450A78DB54CB
 //
 //	Pkg: ShoppingBasket
 //
@@ -29,23 +29,27 @@
 //	MacOS: 10.15
 //
 
-import UIKit
+import Foundation
 
-class BasketGenericCell: UITableViewCell, ReusableCell {
+struct ViewModel: GenericViewModel {
 	
-	override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
-		super.init(style: .value1, reuseIdentifier: nil)
-	}
+	private let calc = Calculator()
 	
-	required init?(coder aDecoder: NSCoder) {
-		super.init(coder: aDecoder)
+	var model: FileManager.Response
+	
+	init(_ model: FileManager.Response) {
+		self.model = model
 	}
 }
 
-// MARK: - Configurable
-extension  BasketGenericCell: Configurable {
-	func configure(_ item: Row) {
-		accessoryType = item.accessoryType
-		selectionStyle = item.selectionStyle
-	}	
+// MARK: UI
+extension ViewModel {
+	
+	var products: [Product] {
+		return model.products
+	}
+	
+	func unitTotalAmount(_ unit: Product) -> String {
+		return String(format: "$%.2f", calc.unitTotalAmount(unit))
+	}
 }

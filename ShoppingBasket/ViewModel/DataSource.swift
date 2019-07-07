@@ -31,9 +31,9 @@
 
 import UIKit
 
-class BasketDataSource: NSObject, UITableViewDataSource {
+class DataSource: NSObject, UITableViewDataSource {
 
-	private let model = BasketViewModel(FileManager.shared.loadJson()!)
+	private let model = ViewModel(FileManager.shared.loadJson()!)
 	
 	func numberOfSections(in tableView: UITableView) -> Int {
 		return Section.all.count
@@ -69,15 +69,15 @@ class BasketDataSource: NSObject, UITableViewDataSource {
 }
 
 // MARK: - Helpers
-extension BasketDataSource {
+extension DataSource {
 	
-	func configureGenericCellLabels(cell: inout BasketGenericCell, row: Row) {
+	func configureGenericCellLabels(cell: inout GenericCell, row: Row) {
 		cell.textLabel?.text = row.title
 	}
 	
 	func configureGenericCell(section: Section, tableView: UITableView, indexPath: IndexPath) -> UITableViewCell {
 		if let row = section.caseForRow(row: indexPath.row),
-		   var cell = tableView.dequeueReusableCell(withIdentifier: row.identifier, for: indexPath) as? BasketGenericCell {
+		   var cell = tableView.dequeueReusableCell(withIdentifier: row.identifier, for: indexPath) as? GenericCell {
 			configureGenericCellLabels(cell: &cell, row: row)
 			cell.configure(row)
 			return cell
@@ -86,8 +86,8 @@ extension BasketDataSource {
 	}
 	
 	func configureProductCell(product: Product, section: Section, tableView: UITableView, indexPath: IndexPath) -> UITableViewCell {
-		if let cell = tableView.dequeueReusableCell(withIdentifier: BasketProductCell.identifier,
-													for: indexPath) as? BasketProductCell {
+		if let cell = tableView.dequeueReusableCell(withIdentifier: ProductCell.identifier,
+													for: indexPath) as? ProductCell {
 			cell.textLabel?.text = product.name
 			cell.detailTextLabel?.text = "$\(product.price)"
 			return cell

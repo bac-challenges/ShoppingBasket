@@ -20,7 +20,7 @@
 //	OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 //	SOFTWARE.
 //
-//	ID: 9CF748AC-7A74-4CFF-80CD-B101BCFE7E42
+//	ID: 91AA6357-1F8F-4E32-B053-0B7BCC82122A
 //
 //	Pkg: ShoppingBasket
 //
@@ -29,49 +29,23 @@
 //	MacOS: 10.15
 //
 
-import Foundation
+import UIKit
 
-public struct BasketCalculator {
+class GenericCell: UITableViewCell, ReusableCell {
 	
-	func unitTotalAmount(_ unit: Product) -> Float {
-		return unit.price * Float(unit.units)
+	override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
+		super.init(style: .value1, reuseIdentifier: nil)
 	}
 	
-	func unitsTotalAmount(_ units: [Product]) -> Float {
-		return units.compactMap { unitTotalAmount($0) }
-					.reduce(0) { $0 + $1 }
-	}
-	
-	func discountRate(_ amount: Float) -> Float {
-		switch amount {
-		case 0...1000:		return 0
-		case 1001...5000:	return 3
-		case 5001...7000:	return 5
-		case 7001...10000:	return 7
-		case 10001...50000: return 10
-		default: return 15
-		}
-	}
-	
-	func discountAmount(_ amount: Float) -> Float {
-		return amount * discountRate(amount)%
-	}
-	
-	func taxAmount(_ amount: Float, rate: Float) -> Float {
-		return amount * rate%
-	}
-	
-	func totalAmount(_ amount: Float, rate: Float) -> Float {
-		let discount = discountAmount(amount)
-		let discontedAmount =  amount - discount
-		let tax = taxAmount(discontedAmount, rate: rate)
-		let taxedAmount = discontedAmount + tax
-		return taxedAmount
+	required init?(coder aDecoder: NSCoder) {
+		super.init(coder: aDecoder)
 	}
 }
 
-// Percantage Helper
-postfix operator %
-postfix func % (percentage: Float) -> Float {
-	return (percentage / 100)
+// MARK: - Configurable
+extension  GenericCell: Configurable {
+	func configure(_ item: Row) {
+		accessoryType = item.accessoryType
+		selectionStyle = item.selectionStyle
+	}	
 }

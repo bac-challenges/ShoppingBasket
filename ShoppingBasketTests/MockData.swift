@@ -20,44 +20,22 @@
 //	OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 //	SOFTWARE.
 //
-//	ID: BD56F036-DF64-4F52-8095-5078035C8C4C
+//	ID: 02EF6F01-253B-4B1D-8649-766C8B0D9299
 //
-//	Pkg: ShoppingBasket
+//	Pkg: ShoppingBasketTests
 //
 //	Swift: 5.0 
 //
 //	MacOS: 10.15
 //
 
-import UIKit
+import Foundation
+@testable import ShoppingBasket
 
-class BasketProductCell: UITableViewCell, ReusableCell {
+let unitPrice: Float = 100
+let unitCount = 10
 
-	override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
-		super.init(style: .value1, reuseIdentifier: nil)
-		setupView()
-	}
-	
-	required init?(coder aDecoder: NSCoder) {
-		super.init(coder: aDecoder)
-	}
-}
+let calc = Calculator()
 
-// MARK: - Configurable
-extension BasketProductCell: Configurable {
-	func configure(_ item: Product) {
-		
-	}
-}
-
-// MARK: - UI
-extension BasketProductCell {
-	private func setupView() {
-		accessoryType = .none
-		selectionStyle = .none
-	}
-	
-	private func setupLayout() {
-		textLabel?.anchor(top: topAnchor, paddingTop: 35)
-	}
-}
+let product = Product(name: "Product", units: unitCount, price: unitPrice)
+let products = Array(repeating: product, count: unitCount)
