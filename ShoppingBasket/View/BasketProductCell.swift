@@ -32,7 +32,7 @@
 import UIKit
 
 class BasketProductCell: UITableViewCell, ReusableCell {
-	
+
 	override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
 		super.init(style: .value1, reuseIdentifier: nil)
 		setupView()
@@ -58,6 +58,6 @@ extension BasketProductCell {
 	}
 	
 	private func setupLayout() {
-		
+		textLabel?.anchor(top: topAnchor, paddingTop: 35)
 	}
 }

@@ -33,6 +33,8 @@ import Foundation
 
 struct BasketViewModel: GenericViewModel {
 	
+	private let calc = BasketCalculator()
+	
 	var model: FileManager.Response
 	
 	init(_ model: FileManager.Response) {

@@ -8,11 +8,12 @@
 	{"name": "Product F", "price": 67.39, "units": 50001}],
 	
 	"discounts": [
-	{"units":  1000, "rate":  3},
-	{"units":  5000, "rate":  5},
-	{"units":  7000, "rate":  7},
-	{"units": 10000, "rate": 10},
-	{"units": 50000, "rate": 15}],
+	{"amount":  1000, "rate":  0},
+	{"amount":  1001, "rate":  3},
+	{"amount":  5001, "rate":  5},
+	{"amount":  7001, "rate":  7},
+	{"amount": 10001, "rate": 10},
+	{"amount": 50001, "rate": 15}],
 	
 	"states": [
 	{"name": "Alabama",	"code": "AL", "rate": 4},

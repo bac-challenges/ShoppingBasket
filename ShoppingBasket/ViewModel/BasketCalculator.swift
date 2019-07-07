@@ -20,7 +20,7 @@
 //	OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 //	SOFTWARE.
 //
-//	ID: 33781857-C3CC-4BC1-8DE6-C7E896E6A4C3
+//	ID: 9CF748AC-7A74-4CFF-80CD-B101BCFE7E42
 //
 //	Pkg: ShoppingBasket
 //
@@ -29,31 +29,49 @@
 //	MacOS: 10.15
 //
 
-import UIKit
+import Foundation
 
-class BasketController: UITableViewController {
+public struct BasketCalculator {
 	
-	// Delegates
-	private lazy var dataSource = BasketDataSource()
+	func unitTotalAmount(_ unit: Product) -> Float {
+		return unit.price * Float(unit.units)
+	}
 	
-	// Life cycle
-	override func viewDidLoad() {
-		super.viewDidLoad()
-		setupView()
+	func unitsTotalAmount(_ units: [Product]) -> Float {
+		return units.compactMap { unitTotalAmount($0) }
+					.reduce(0) { $0 + $1 }
+	}
+	
+	func discountRate(_ amount: Float) -> Float {
+		switch amount {
+		case 0...1000:		return 0
+		case 1001...5000:	return 3
+		case 5001...7000:	return 5
+		case 7001...10000:	return 7
+		case 10001...50000: return 10
+		default: return 15
+		}
+	}
+	
+	func discountAmount(_ amount: Float) -> Float {
+		return amount * discountRate(amount)%
+	}
+	
+	func taxAmount(_ amount: Float, rate: Float) -> Float {
+		return amount * rate%
+	}
+	
+	func totalAmount(_ amount: Float, rate: Float) -> Float {
+		let discount = discountAmount(amount)
+		let discontedAmount =  amount - discount
+		let tax = taxAmount(discontedAmount, rate: rate)
+		let taxedAmount = discontedAmount + tax
+		return taxedAmount
 	}
 }
 
-// MARK: - UI
-extension  BasketController {
-	private func setupView() {
-		title = "Basket"
-		tableView = UITableView(frame: CGRect.zero, style: .grouped)
-		tableView.register(BasketGenericCell.self, forCellReuseIdentifier: BasketGenericCell.identifier)
-		tableView.register(BasketProductCell.self, forCellReuseIdentifier: BasketProductCell.identifier)
-		tableView.separatorStyle = .none
-		tableView.contentInsetAdjustmentBehavior = .automatic
-		tableView.rowHeight = UITableView.automaticDimension
-		tableView.estimatedRowHeight = 70
-		tableView.dataSource = dataSource
-	}
+// Percantage Helper
+postfix operator %
+postfix func % (percentage: Float) -> Float {
+	return (percentage / 100)
 }
