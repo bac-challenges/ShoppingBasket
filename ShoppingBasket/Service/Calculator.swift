@@ -20,7 +20,7 @@
 //	OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 //	SOFTWARE.
 //
-//	ID: D9E38171-94B3-48ED-A5DF-314FCF160022
+//	ID: 9CF748AC-7A74-4CFF-80CD-B101BCFE7E42
 //
 //	Pkg: ShoppingBasket
 //
@@ -31,31 +31,49 @@
 
 import Foundation
 
-public struct FileManager {
+public struct Calculator {
 	
-	// Response object
-	public struct Response: Codable {
-		let states: [State]
-		let products: [Product]
-		let discounts: [Discount]
+	public static let shared = Calculator()
+	
+	func unitTotalAmount(_ unit: Product) -> Float {
+		return unit.price * Float(unit.units)
 	}
 	
-	// Singleton
-	public static let shared = FileManager()
+	func unitsTotalAmount(_ units: [Product]) -> Float {
+		return units.compactMap { unitTotalAmount($0) }
+					.reduce(0) { $0 + $1 }
+	}
 	
-	// Get sample data
-	@discardableResult
-	public func loadJson() -> Response? {
-		if let url = Bundle.main.url(forResource: "data-source", withExtension: "json") {
-			do {
-				let data = try Data(contentsOf: url)
-				let decoder = JSONDecoder()
-				let response = try decoder.decode(Response.self, from: data)
-				return response
-			} catch {
-				print("error:\(error)")
-			}
+	func discountRate(_ amount: Float) -> Float {
+		switch amount {
+		case 0...1000:		return 0
+		case 1001...5000:	return 3
+		case 5001...7000:	return 5
+		case 7001...10000:	return 7
+		case 10001...50000: return 10
+		default: return 15
 		}
-		return nil
 	}
+	
+	func discountAmount(_ amount: Float) -> Float {
+		return amount * discountRate(amount)%
+	}
+	
+	func taxAmount(_ amount: Float, rate: Float) -> Float {
+		return amount * rate%
+	}
+	
+	func totalAmount(_ amount: Float, rate: Float) -> Float {
+		let discount = discountAmount(amount)
+		let discontedAmount =  amount - discount
+		let tax = taxAmount(discontedAmount, rate: rate)
+		let taxedAmount = discontedAmount + tax
+		return taxedAmount
+	}
+}
+
+// Percantage Helper
+postfix operator %
+postfix func % (percentage: Float) -> Float {
+	return (percentage / 100)
 }

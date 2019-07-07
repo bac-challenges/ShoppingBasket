@@ -32,6 +32,6 @@
 import Foundation
 
 struct Discount: Codable {
-	let units: Int
-	let rate: Int
+	let amount: Int
+	let rate: Float
 }

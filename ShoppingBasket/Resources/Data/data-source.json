@@ -1,18 +1,19 @@
 {
 	"products": [
-	{"name": "Product A", "price": 12.50, "units":   999},
-	{"name": "Product B", "price": 43.99, "units":  1001},
-	{"name": "Product C", "price": 28.74, "units":  5001},
-	{"name": "Product D", "price": 75.10, "units":  7001},
-	{"name": "Product E", "price": 32.85, "units": 10001},
-	{"name": "Product F", "price": 67.39, "units": 50001}],
+	{"name": "Product A", "price": 12.50, "units":    30},
+	{"name": "Product B", "price": 43.99, "units":   100},
+	{"name": "Product C", "price": 28.74, "units":  1000},
+	{"name": "Product D", "price": 75.10, "units":   700},
+	{"name": "Product E", "price": 32.85, "units":     5},
+	{"name": "Product F", "price": 67.39, "units":   300}],
 	
 	"discounts": [
-	{"units":  1000, "rate":  3},
-	{"units":  5000, "rate":  5},
-	{"units":  7000, "rate":  7},
-	{"units": 10000, "rate": 10},
-	{"units": 50000, "rate": 15}],
+	{"amount":  1000, "rate":  0},
+	{"amount":  1001, "rate":  3},
+	{"amount":  5001, "rate":  5},
+	{"amount":  7001, "rate":  7},
+	{"amount": 10001, "rate": 10},
+	{"amount": 50001, "rate": 15}],
 	
 	"states": [
 	{"name": "Alabama",	"code": "AL", "rate": 4},
