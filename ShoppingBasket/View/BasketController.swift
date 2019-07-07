@@ -79,26 +79,22 @@ extension BasketController {
 	override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
 		
 		let section = BasketViewModel.Section.all[indexPath.section]
-		switch section {
-		case .product:
-			if let cell = tableView.dequeueReusableCell(withIdentifier: ProductCell.identifier, for: indexPath) as? ProductCell {
-				let product = model.basket[indexPath.row]
-				cell.textLabel?.text = product.name
-				cell.detailTextLabel?.text = model.unitTotalAmount(product)
-				return cell
+		
+		if let row = section.caseForRow(row: indexPath.row) {
+			let cell = tableView.dequeueReusableCell(withIdentifier: row.identifier, for: indexPath)
+			cell.accessoryType = row.accessoryType
+			cell.selectionStyle = row.selectionStyle
+			cell.textLabel?.text = row.title
+			cell.detailTextLabel?.text = row.detail
+			cell.detailTextLabel?.textColor = row.detailColor
+			
+			if let cell = cell as? ProductCell {
+				cell.configure(model.basket[indexPath.row])
 			}
 			
-		default:
-			if let row = section.caseForRow(row: indexPath.row) {
-				let cell = tableView.dequeueReusableCell(withIdentifier: row.identifier, for: indexPath)
-				cell.accessoryType = row.accessoryType
-				cell.selectionStyle = row.selectionStyle
-				cell.textLabel?.text = row.title
-				cell.detailTextLabel?.text = row.detail
-				cell.detailTextLabel?.textColor = row.detailColor
-				return cell
-			}
+			return cell
 		}
+		
 		return UITableViewCell(style: .value1, reuseIdentifier: nil)
 	}
 }

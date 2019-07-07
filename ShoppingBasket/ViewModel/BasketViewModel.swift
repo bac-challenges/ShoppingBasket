@@ -134,11 +134,41 @@ extension BasketViewModel {
 		
 		func caseForRow(row: Int) -> Row? {
 			switch self {
-			case .product: return nil
+			case .product: return SectionProduct(rawValue: row)
 			case .address: return SectionAddress(rawValue: row)
 			case .breakdown: return SectionBreakdown(rawValue: row)
 			case .total: return SectionTotal(rawValue: row)
 			}
+		}
+	}
+	
+	// Section Product Row
+	enum SectionProduct: Int, Row {
+		
+		case product
+		
+		var identifier: String {
+			return ProductCell.identifier
+		}
+		
+		var selectionStyle: UITableViewCell.SelectionStyle {
+			return .none
+		}
+		
+		var accessoryType: UITableViewCell.AccessoryType {
+			return .none
+		}
+		
+		var title: String {
+			return ""
+		}
+		
+		var detail: String {
+			return ""
+		}
+		
+		var detailColor: UIColor {
+			return .clear
 		}
 	}
 	
@@ -195,7 +225,7 @@ extension BasketViewModel {
 		
 		var title: String {
 			switch self {
-			case .total: return "Total without taxes"
+			case .total: return "Subtotal"
 			case .discount: return "Discout \(BasketViewModel.shared.discountRate)%"
 			case .tax: return "Tax \(BasketViewModel.shared.taxRate)%"
 			}

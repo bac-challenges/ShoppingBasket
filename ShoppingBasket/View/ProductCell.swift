@@ -33,6 +33,18 @@ import UIKit
 
 class ProductCell: UITableViewCell, ReusableCell {
 
+	private lazy var titleLabel = UILabel()
+	
+	private lazy var container = UIStackView()
+	
+	private lazy var textField = UITextField()
+	private lazy var stepper = UIStepper()
+	
+	private lazy var totalPriceValueLabel = UILabel()
+	private lazy var unitPriceLabel = UILabel()
+	private lazy var unitPriceValueLabel = UILabel()
+	private lazy var totalPriceLabel = UILabel()
+	
 	override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
 		super.init(style: .value1, reuseIdentifier: nil)
 		setupView()
@@ -46,7 +58,7 @@ class ProductCell: UITableViewCell, ReusableCell {
 // MARK: - Configurable
 extension ProductCell: Configurable {
 	func configure(_ item: Product) {
-		
+		titleLabel.text = item.name
 	}
 }
 
@@ -55,9 +67,20 @@ extension ProductCell {
 	private func setupView() {
 		accessoryType = .none
 		selectionStyle = .none
+		preservesSuperviewLayoutMargins = true
+		addSubview(titleLabel)
+		setupLayout()
 	}
 	
 	private func setupLayout() {
-		textLabel?.anchor(top: topAnchor, paddingTop: 35)
+		titleLabel.anchor(top: layoutMarginsGuide.topAnchor,
+						  left: layoutMarginsGuide.leftAnchor)
+		
+		//		view.anchor(top: layoutMarginsGuide.topAnchor,
+		//					bottom: layoutMarginsGuide.bottomAnchor,
+		//					left: layoutMarginsGuide.leftAnchor,
+		//					right: layoutMarginsGuide.rightAnchor,
+		//					height: 200)
+		
 	}
 }
