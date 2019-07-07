@@ -150,8 +150,8 @@
 			isa = PBXGroup;
 			children = (
 				60CF6EE322D20F3100808A9D /* BasketController.swift */,
-				60BDB99A22D1B86F006214A2 /* GenericCell.swift */,
 				60BDB99C22D1B88C006214A2 /* ProductCell.swift */,
+				60BDB99A22D1B86F006214A2 /* GenericCell.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";

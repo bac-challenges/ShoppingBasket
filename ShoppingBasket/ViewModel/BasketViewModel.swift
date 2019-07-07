@@ -49,13 +49,13 @@ struct BasketViewModel {
 			fatalError()
 		}
 		
-		// Private
+		// Data
 		products = model.products
 		states = model.states
 
-		// Default basket
+		// Basket
 		state = states.first!
-		basket = products
+		basket = [products.first!]
 	}
 }
 
@@ -134,7 +134,7 @@ extension BasketViewModel {
 		
 		func caseForRow(row: Int) -> Row? {
 			switch self {
-			case .product: return SectionProduct(rawValue: row)
+			case .product: return SectionProduct(rawValue: 0)
 			case .address: return SectionAddress(rawValue: row)
 			case .breakdown: return SectionBreakdown(rawValue: row)
 			case .total: return SectionTotal(rawValue: row)

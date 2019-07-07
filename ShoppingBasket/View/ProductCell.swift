@@ -35,16 +35,68 @@ class ProductCell: UITableViewCell, ReusableCell {
 
 	private lazy var titleLabel = UILabel()
 	
-	private lazy var container = UIStackView()
+	private lazy var container: UIStackView = {
+		let view = UIStackView(arrangedSubviews: [topSubContainer, bottomSubContainer])
+		view.axis = .vertical
+		view.spacing = 10
+		return view
+	}()
+	
+	private lazy var topSubContainer: UIStackView = {
+		let view = UIStackView(arrangedSubviews: [textField, stepper])
+		view.axis = .horizontal
+		view.spacing = 5
+		return view
+	}()
 	
 	private lazy var textField = UITextField()
 	private lazy var stepper = UIStepper()
 	
-	private lazy var totalPriceValueLabel = UILabel()
-	private lazy var unitPriceLabel = UILabel()
-	private lazy var unitPriceValueLabel = UILabel()
-	private lazy var totalPriceLabel = UILabel()
+	private lazy var bottomSubContainer: UIStackView = {
+		let view = UIStackView(arrangedSubviews: [unitContainer, totalContainer])
+		view.axis = .vertical
+		view.spacing = 5
+		return view
+	}()
 	
+	private lazy var unitContainer: UIStackView = {
+		let view = UIStackView(arrangedSubviews: [unitPriceLabel, unitPriceValueLabel])
+		view.axis = .horizontal
+		view.spacing = 5
+		return view
+	}()
+	
+	private lazy var unitPriceLabel = UILabel()
+	private lazy var unitPriceValueLabel: UILabel = {
+		let label = UILabel()
+		label.textColor = .lightGray
+		label.textAlignment = .right
+		return label
+	}()
+	
+	private lazy var totalContainer: UIStackView = {
+		let view = UIStackView(arrangedSubviews: [totalPriceLabel, totalPriceValueLabel])
+		view.axis = .horizontal
+		view.spacing = 5
+		return view
+	}()
+	
+	private lazy var totalPriceLabel = UILabel()
+	private lazy var totalPriceValueLabel: UILabel = {
+		let label = UILabel()
+		label.textColor = .lightGray
+		label.textAlignment = .right
+		return label
+	}()
+	
+	private lazy var separator: UIView = {
+		let view = UIView()
+		view.backgroundColor = .lightGray
+		view.alpha = 0.3
+		return view
+	}()
+	
+	// Init
 	override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
 		super.init(style: .value1, reuseIdentifier: nil)
 		setupView()
@@ -59,6 +111,15 @@ class ProductCell: UITableViewCell, ReusableCell {
 extension ProductCell: Configurable {
 	func configure(_ item: Product) {
 		titleLabel.text = item.name
+		
+		textField.text = "\(item.units)"
+		textField.textAlignment = .right
+		textField.borderStyle = .roundedRect
+		
+		unitPriceLabel.text = "Unit Price:"
+		unitPriceValueLabel.text = "\(item.price.formattedWithSeparator)"
+		totalPriceLabel.text = "Unit Total:"
+		totalPriceValueLabel.text = "\((Float(item.units)*item.price).formattedWithSeparator)"
 	}
 }
 
@@ -69,18 +130,25 @@ extension ProductCell {
 		selectionStyle = .none
 		preservesSuperviewLayoutMargins = true
 		addSubview(titleLabel)
+		addSubview(container)
+		addSubview(separator)
 		setupLayout()
 	}
 	
 	private func setupLayout() {
 		titleLabel.anchor(top: layoutMarginsGuide.topAnchor,
+						  paddingTop: 6,
 						  left: layoutMarginsGuide.leftAnchor)
 		
-		//		view.anchor(top: layoutMarginsGuide.topAnchor,
-		//					bottom: layoutMarginsGuide.bottomAnchor,
-		//					left: layoutMarginsGuide.leftAnchor,
-		//					right: layoutMarginsGuide.rightAnchor,
-		//					height: 200)
+		container.anchor(top: layoutMarginsGuide.topAnchor,
+						 bottom: layoutMarginsGuide.bottomAnchor,
+						 right: layoutMarginsGuide.rightAnchor)
 		
+		textField.anchor(width: 80)
+		
+		separator.anchor(bottom: bottomAnchor,
+						 left: layoutMarginsGuide.leftAnchor,
+						 right: layoutMarginsGuide.rightAnchor,
+						 height: 1)
 	}
 }

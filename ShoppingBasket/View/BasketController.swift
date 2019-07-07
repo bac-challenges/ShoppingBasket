@@ -81,7 +81,7 @@ extension BasketController {
 		let section = BasketViewModel.Section.all[indexPath.section]
 		
 		if let row = section.caseForRow(row: indexPath.row) {
-			let cell = tableView.dequeueReusableCell(withIdentifier: row.identifier, for: indexPath)
+		   let cell = tableView.dequeueReusableCell(withIdentifier: row.identifier, for: indexPath)
 			cell.accessoryType = row.accessoryType
 			cell.selectionStyle = row.selectionStyle
 			cell.textLabel?.text = row.title
@@ -94,7 +94,6 @@ extension BasketController {
 			
 			return cell
 		}
-		
 		return UITableViewCell(style: .value1, reuseIdentifier: nil)
 	}
 }
