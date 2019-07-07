@@ -64,26 +64,35 @@ extension BasketViewModel {
 		return "\(state.name), \(state.code)"
 	}
 	
-	var unitsTotalAmount: String {
+	var unitsTotalAmountString: String {
 		let result = Calculator.shared.unitsTotalAmount(products)
 		return result.formattedWithSeparator
 	}
 	
+	var unitsTotalAmount: Float {
+		return Calculator.shared.unitsTotalAmount(products)
+	}
+	
+	var discountRate: Float {
+		return Calculator.shared.discountRate(unitsTotalAmount)
+	}
+	
 	var discountAmount: String {
-		#warning("Use real data")
-		let result = Calculator.shared.totalAmount(10000, rate: 10)
+		let result = Calculator.shared.discountAmount(unitsTotalAmount)
 		return "- \(result.formattedWithSeparator)"
 	}
 	
+	var taxRate: Float {
+		return BasketViewModel.shared.state?.rate ?? 0
+	}
+	
 	var taxAmount: String {
-		#warning("Use real data")
-		let result = Calculator.shared.taxAmount(10000, rate: 10)
+		let result = Calculator.shared.taxAmount(unitsTotalAmount, rate: taxRate)
 		return "+ \(result.formattedWithSeparator)"
 	}
 	
 	var totalAmount: String {
-		#warning("Use real data")
-		let result = Calculator.shared.totalAmount(10000, rate: 10)
+		let result = Calculator.shared.totalAmount(unitsTotalAmount, rate: taxRate)
 		return result.formattedWithSeparator
 	}
 }
@@ -137,7 +146,7 @@ extension BasketViewModel {
 		}
 		
 		var selectionStyle: UITableViewCell.SelectionStyle {
-			return .default
+			return .none
 		}
 		
 		var accessoryType: UITableViewCell.AccessoryType {
@@ -181,14 +190,14 @@ extension BasketViewModel {
 		var title: String {
 			switch self {
 			case .total: return "Total without taxes"
-			case .discount: return "Discout 5%"
-			case .tax: return "Tax \(BasketViewModel.shared.state?.rate ?? 0)%"
+			case .discount: return "Discout \(BasketViewModel.shared.discountRate)%"
+			case .tax: return "Tax \(BasketViewModel.shared.taxRate)%"
 			}
 		}
 
 		var detail: String {
 			switch self {
-			case .total: return BasketViewModel.shared.unitsTotalAmount
+			case .total: return BasketViewModel.shared.unitsTotalAmountString
 			case .discount: return BasketViewModel.shared.discountAmount
 			case .tax: return BasketViewModel.shared.taxAmount
 			}
