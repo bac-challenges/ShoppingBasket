@@ -41,3 +41,15 @@ struct BasketViewModel: GenericViewModel {
 		self.model = model
 	}
 }
+
+// MARK: UI
+extension BasketViewModel {
+	
+	var products: [Product] {
+		return model.products
+	}
+	
+	func unitTotalAmount(_ unit: Product) -> String {
+		return String(format: "$%.2f", calc.unitTotalAmount(unit))
+	}
+}

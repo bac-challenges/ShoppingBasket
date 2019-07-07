@@ -48,7 +48,7 @@ enum Section: Int {
 	
 	var rows: Int {
 		switch self {
-		case .product: return 5
+		case .product: return 0
 		case .address: return 1
 		case .breakdown: return SectionBreakdown.all.count
 		case .total: return 1

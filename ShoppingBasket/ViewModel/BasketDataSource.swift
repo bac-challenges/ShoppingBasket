@@ -33,18 +33,25 @@ import UIKit
 
 class BasketDataSource: NSObject, UITableViewDataSource {
 
-	private let model = FileManager.shared.loadJson()!.products
+	private let model = BasketViewModel(FileManager.shared.loadJson()!)
 	
 	func numberOfSections(in tableView: UITableView) -> Int {
 		return Section.all.count
 	}
 	
 	func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-		return Section(rawValue: section)?.rows ?? 0
+		
+		if let section = Section(rawValue: section) {
+			switch section {
+			case .product: return model.products.count
+			default: return section.rows
+			}
+		}
+		return 0
 	}
 	
 	func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-		let product = model[indexPath.row]
+		let product = model.products[indexPath.row]
 		let section = Section.all[indexPath.section]
 		
 		switch section {
@@ -53,10 +60,9 @@ class BasketDataSource: NSObject, UITableViewDataSource {
 												   tableView: tableView,
 												   indexPath: indexPath)
 			
-		default:
-			let cell = configureGenericCell(section: section,
-											tableView: tableView,
-											indexPath: indexPath)
+		default: let cell = configureGenericCell(section: section,
+												 tableView: tableView,
+												 indexPath: indexPath)
 			return cell
 		}
 	}
