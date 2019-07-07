@@ -20,19 +20,24 @@
 //	OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 //	SOFTWARE.
 //
-//	ID: A09A763E-8806-4128-8285-7AF8C6018EAA
+//	ID: 91AA6357-1F8F-4E32-B053-0B7BCC82122A
 //
 //	Pkg: ShoppingBasket
 //
-//	Swift: 5
+//	Swift: 5.0 
 //
 //	MacOS: 10.15
 //
 
-import Foundation
+import UIKit
 
-public protocol GenericViewModel {
-	associatedtype T
-	var model: T { get }
-	init(_ model: T)
+class GenericCell: UITableViewCell, ReusableCell {
+	
+	override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
+		super.init(style: .value1, reuseIdentifier: nil)
+	}
+	
+	required init?(coder aDecoder: NSCoder) {
+		super.init(coder: aDecoder)
+	}
 }

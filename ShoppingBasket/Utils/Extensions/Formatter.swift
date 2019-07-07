@@ -35,7 +35,7 @@ extension Formatter {
 	static let withSeparator: NumberFormatter = {
 		let formatter = NumberFormatter()
 		formatter.groupingSeparator = "."
-		formatter.numberStyle = .decimal
+		formatter.numberStyle = .currency
 		return formatter
 	}()
 }

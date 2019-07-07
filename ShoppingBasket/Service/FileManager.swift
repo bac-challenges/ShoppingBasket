@@ -44,6 +44,7 @@ public struct FileManager {
 	public static let shared = FileManager()
 	
 	// Get sample data
+	@discardableResult
 	public func loadJson() -> Response? {
 		if let url = Bundle.main.url(forResource: "data-source", withExtension: "json") {
 			do {

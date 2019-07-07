@@ -31,10 +31,13 @@
 
 import UIKit
 
-class BasketController: UITableViewController {
+class BasketController: UIViewController {
 	
-	// Delegates
-	private lazy var dataSource = DataSource()
+	// Model
+	private var model = BasketViewModel.shared
+	
+	// UI
+	private var tableView = UITableView()
 	
 	// Life cycle
 	override func viewDidLoad() {
@@ -54,6 +57,56 @@ extension  BasketController {
 		tableView.contentInsetAdjustmentBehavior = .automatic
 		tableView.rowHeight = UITableView.automaticDimension
 		tableView.estimatedRowHeight = 70
-		tableView.dataSource = dataSource
+		tableView.dataSource = self
+		view.addSubview(tableView)
+		setupLayout()
+	}
+	
+	private func setupLayout() {
+		tableView.anchor(top: view.topAnchor,
+						 bottom: view.bottomAnchor,
+						 left: view.leftAnchor,
+						 right: view.rightAnchor)
+	}
+}
+
+// MARK: - UITableViewDataSource
+extension BasketController: UITableViewDataSource {
+	
+	func numberOfSections(in tableView: UITableView) -> Int {
+		return BasketViewModel.Section.all.count
+	}
+	
+	func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+		guard let section = BasketViewModel.Section(rawValue: section) else {
+			return 0
+		}
+		return section.rows
+	}
+	
+	func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+		
+		let section = BasketViewModel.Section.all[indexPath.section]
+		switch section {
+		case .product:
+			if let cell = tableView.dequeueReusableCell(withIdentifier: ProductCell.identifier, for: indexPath) as? ProductCell {
+				let product = model.products[indexPath.row]
+				cell.textLabel?.text = product.name
+				cell.detailTextLabel?.text = model.unitTotalAmount(product)
+				return cell
+			}
+			
+		default:
+			if let row = section.caseForRow(row: indexPath.row) {
+				let cell = tableView.dequeueReusableCell(withIdentifier: row.identifier, for: indexPath)
+				cell.accessoryType = row.accessoryType
+				cell.selectionStyle = row.selectionStyle
+				cell.textLabel?.text = row.title
+				cell.detailTextLabel?.text = row.detail
+				return cell
+			}
+		}
+		
+		return UITableViewCell(style: .value1, reuseIdentifier: nil)
 	}
 }

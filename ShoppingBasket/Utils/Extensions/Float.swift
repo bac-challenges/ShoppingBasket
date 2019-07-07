@@ -20,36 +20,19 @@
 //	OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 //	SOFTWARE.
 //
-//	ID: 5C5EE745-6C5C-4A27-B648-450A78DB54CB
+//	ID: 748ECA6A-34EA-4B42-BFED-635D053F76B8
 //
 //	Pkg: ShoppingBasket
 //
-//	Swift: 5.0 
+//	Swift: 5
 //
 //	MacOS: 10.15
 //
 
 import Foundation
 
-struct ViewModel: GenericViewModel {
-	
-	internal var model: FileManager.Response
-	
-	public let products: [Product]
-	public var state: State?
-	
-	init(_ model: FileManager.Response) {
-		self.model = model
-		
-		//
-		products = model.products
-		state = model.states.first
-	}
-}
-
-// MARK: Product
-extension ViewModel {
-	func unitTotalAmount(_ unit: Product) -> String {
-		return String(format: "$%.2f", Calculator.shared.unitTotalAmount(unit))
+extension Float {
+	var formattedWithSeparator: String {
+		return Formatter.withSeparator.string(for: self) ?? ""
 	}
 }
