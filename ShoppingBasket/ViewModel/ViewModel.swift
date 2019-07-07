@@ -33,23 +33,23 @@ import Foundation
 
 struct ViewModel: GenericViewModel {
 	
-	private let calc = Calculator()
+	internal var model: FileManager.Response
 	
-	var model: FileManager.Response
+	public let products: [Product]
+	public var state: State?
 	
 	init(_ model: FileManager.Response) {
 		self.model = model
+		
+		//
+		products = model.products
+		state = model.states.first
 	}
 }
 
-// MARK: UI
+// MARK: Product
 extension ViewModel {
-	
-	var products: [Product] {
-		return model.products
-	}
-	
 	func unitTotalAmount(_ unit: Product) -> String {
-		return String(format: "$%.2f", calc.unitTotalAmount(unit))
+		return String(format: "$%.2f", Calculator.shared.unitTotalAmount(unit))
 	}
 }

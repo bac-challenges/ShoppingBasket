@@ -33,6 +33,8 @@ import Foundation
 
 public struct Calculator {
 	
+	public static let shared = Calculator()
+	
 	func unitTotalAmount(_ unit: Product) -> Float {
 		return unit.price * Float(unit.units)
 	}

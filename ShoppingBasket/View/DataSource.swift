@@ -33,14 +33,13 @@ import UIKit
 
 class DataSource: NSObject, UITableViewDataSource {
 
-	private let model = ViewModel(FileManager.shared.loadJson()!)
+	private var model = ViewModel(FileManager.shared.loadJson()!)
 	
 	func numberOfSections(in tableView: UITableView) -> Int {
 		return Section.all.count
 	}
 	
 	func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-		
 		if let section = Section(rawValue: section) {
 			switch section {
 			case .product: return model.products.count
@@ -60,10 +59,9 @@ class DataSource: NSObject, UITableViewDataSource {
 												   tableView: tableView,
 												   indexPath: indexPath)
 			
-		default: let cell = configureGenericCell(section: section,
-												 tableView: tableView,
-												 indexPath: indexPath)
-			return cell
+		default: return configureGenericCell(section: section,
+											 tableView: tableView,
+											 indexPath: indexPath)
 		}
 	}
 }
@@ -71,25 +69,29 @@ class DataSource: NSObject, UITableViewDataSource {
 // MARK: - Helpers
 extension DataSource {
 	
-	func configureGenericCellLabels(cell: inout GenericCell, row: Row) {
-		cell.textLabel?.text = row.title
-	}
-	
 	func configureGenericCell(section: Section, tableView: UITableView, indexPath: IndexPath) -> UITableViewCell {
+		
 		if let row = section.caseForRow(row: indexPath.row),
 		   var cell = tableView.dequeueReusableCell(withIdentifier: row.identifier, for: indexPath) as? GenericCell {
-			configureGenericCellLabels(cell: &cell, row: row)
+			configureGenericCellLabels(cell: &cell, section: section, row: row)
 			cell.configure(row)
 			return cell
 		}
+		
 		return UITableViewCell(style: .value1, reuseIdentifier: nil)
 	}
 	
+	func configureGenericCellLabels(cell: inout GenericCell, section: Section, row: Row) {
+		switch section {
+		case .address: cell.textLabel?.text = row.title
+		default: cell.textLabel?.text = row.title
+		}
+	}
+	
 	func configureProductCell(product: Product, section: Section, tableView: UITableView, indexPath: IndexPath) -> UITableViewCell {
-		if let cell = tableView.dequeueReusableCell(withIdentifier: ProductCell.identifier,
-													for: indexPath) as? ProductCell {
+		if let cell = tableView.dequeueReusableCell(withIdentifier: ProductCell.identifier, for: indexPath) as? ProductCell {
 			cell.textLabel?.text = product.name
-			cell.detailTextLabel?.text = "$\(product.price)"
+			cell.detailTextLabel?.text = model.unitTotalAmount(product)
 			return cell
 		}
 		
