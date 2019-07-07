@@ -32,25 +32,27 @@
 import UIKit
 
 class BasketController: UIViewController {
-
-	public lazy var tableView: UITableView = {
-		let view = UITableView()
-		view.register(UITableViewCell.self, forCellReuseIdentifier: "Cell")
-		view.separatorStyle = .singleLine
-		view.tableFooterView = UIView(frame: .zero)
+	
+	// Delegates
+	private lazy var dataSource = BasketDataSource()
+	
+	// UI
+	private lazy var tableView: UITableView = {
+		let view = UITableView(frame: CGRect.zero, style: .grouped)
+		view.register(UITableViewCell.self, forCellReuseIdentifier: "GenericCell")
+		view.separatorStyle = .none
 		view.contentInsetAdjustmentBehavior = .automatic
 		view.rowHeight = UITableView.automaticDimension
 		view.estimatedRowHeight = 70
-		view.dataSource = self
+		view.dataSource = dataSource
 		view.debugMode()
 		return view
 	}()
-	
+
+	// Init
 	override func viewDidLoad() {
 		super.viewDidLoad()
 		setupView()
-		//
-		let response = FileManager.shared.loadJson()
 	}
 }
 
@@ -69,17 +71,5 @@ extension  BasketController {
 						 bottom: view.bottomAnchor,
 						 left: view.leftAnchor,
 						 right: view.rightAnchor)
-	}
-}
-
-// MARK: - UITableViewDataSource
-extension BasketController: UITableViewDataSource {
-	func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-		return 5
-	}
-	
-	func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-		let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath)
-		return cell
 	}
 }
