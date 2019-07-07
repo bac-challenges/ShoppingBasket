@@ -44,26 +44,41 @@ class BasketDataSource: NSObject, UITableViewDataSource {
 	}
 	
 	func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+		let product = model[indexPath.row]
+		let section = Section.all[indexPath.section]
 		
-//		let product = model[indexPath.row]
-		
-		let sectionCase = Section.all[indexPath.section]
-		
-		return configureGenericCell(section: sectionCase,
-									tableView: tableView,
-									indexPath: indexPath)
+		switch section {
+		case .product: return configureProductCell(product: product,
+												   section: section,
+												   tableView: tableView,
+												   indexPath: indexPath)
+			
+		default: return configureGenericCell(section: section,
+											 tableView: tableView,
+											 indexPath: indexPath)
+		}
 	}
 }
 
 // MARK: - Helpers
 extension BasketDataSource {
 	func configureGenericCell(section: Section, tableView: UITableView, indexPath: IndexPath) -> UITableViewCell {
-		
 		if let rowCase = section.caseForRow(row: indexPath.row) {
 			let cell = tableView.dequeueReusableCell(withIdentifier: rowCase.identifier, for: indexPath)
 			cell.textLabel?.text = rowCase.title
 			cell.accessoryType = rowCase.accessoryType
 			cell.selectionStyle = rowCase.selectionStyle
+			return cell
+		}
+		
+		return UITableViewCell(style: .value1, reuseIdentifier: nil)
+	}
+	
+	func configureProductCell(product: Product, section: Section, tableView: UITableView, indexPath: IndexPath) -> UITableViewCell {
+		
+		if let cell = configureGenericCell(section: section, tableView: tableView, indexPath: indexPath) as? BasketProductCell {
+			cell.textLabel?.text = product.name
+			cell.detailTextLabel?.text = "$\(product.price)"
 			return cell
 		}
 		

@@ -31,24 +31,11 @@
 
 import UIKit
 
-class BasketController: UIViewController {
+class BasketController: UITableViewController {
 	
 	// Delegates
 	private lazy var dataSource = BasketDataSource()
 	
-	// UI
-	private lazy var tableView: UITableView = {
-		let view = UITableView(frame: CGRect.zero, style: .grouped)
-		view.register(UITableViewCell.self, forCellReuseIdentifier: "GenericCell")
-		view.separatorStyle = .none
-		view.contentInsetAdjustmentBehavior = .automatic
-		view.rowHeight = UITableView.automaticDimension
-		view.estimatedRowHeight = 70
-		view.dataSource = dataSource
-		view.debugMode()
-		return view
-	}()
-
 	// Init
 	override func viewDidLoad() {
 		super.viewDidLoad()
@@ -58,18 +45,15 @@ class BasketController: UIViewController {
 
 // MARK: - UI
 extension  BasketController {
-	
 	private func setupView() {
 		title = "Basket"
-		view.backgroundColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)
-		view.addSubview(tableView)
-		setupLayout()
-	}
-	
-	private func setupLayout() {
-		tableView.anchor(top: view.topAnchor,
-						 bottom: view.bottomAnchor,
-						 left: view.leftAnchor,
-						 right: view.rightAnchor)
+		tableView = UITableView(frame: CGRect.zero, style: .grouped)
+		tableView.register(BasketGenericCell.self, forCellReuseIdentifier: BasketGenericCell.identifier)
+		tableView.register(BasketProductCell.self, forCellReuseIdentifier: BasketProductCell.identifier)
+		tableView.separatorStyle = .none
+		tableView.contentInsetAdjustmentBehavior = .automatic
+		tableView.rowHeight = UITableView.automaticDimension
+		tableView.estimatedRowHeight = 70
+		tableView.dataSource = dataSource
 	}
 }

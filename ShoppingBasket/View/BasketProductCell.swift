@@ -20,7 +20,7 @@
 //	OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 //	SOFTWARE.
 //
-//	ID: D9E38171-94B3-48ED-A5DF-314FCF160022
+//	ID: BD56F036-DF64-4F52-8095-5078035C8C4C
 //
 //	Pkg: ShoppingBasket
 //
@@ -29,32 +29,15 @@
 //	MacOS: 10.15
 //
 
-import Foundation
+import UIKit
 
-public struct FileManager {
+class BasketProductCell: UITableViewCell, ReusableCell {
 	
-	// Response object
-	public struct Response: Codable {
-		let states: [State]
-		let products: [Product]
-		let discounts: [Discount]
+	override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
+		super.init(style: .value1, reuseIdentifier: nil)
 	}
 	
-	// Singleton
-	public static let shared = FileManager()
-	
-	// Get sample data
-	public func loadJson() -> Response? {
-		if let url = Bundle.main.url(forResource: "data-source", withExtension: "json") {
-			do {
-				let data = try Data(contentsOf: url)
-				let decoder = JSONDecoder()
-				let response = try decoder.decode(Response.self, from: data)
-				return response
-			} catch {
-				print("error:\(error)")
-			}
-		}
-		return nil
+	required init?(coder aDecoder: NSCoder) {
+		fatalError("init(coder:) has not been implemented")
 	}
 }
