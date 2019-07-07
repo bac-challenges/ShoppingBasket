@@ -36,17 +36,26 @@ struct BasketViewModel {
 	// Singleton
 	public static let shared = BasketViewModel()
 	
-	// Public Models
-	public var products: [Product]
-	public var state: State?
-
+	// Private Models
+	public let products: [Product]
+	public let states: [State]
+	
+	public var basket: [Product]
+	public var state: State
+	
+	// Init
 	init() {
 		guard let model = FileManager.shared.loadJson() else {
 			fatalError()
 		}
+		
+		// Private
+		products = model.products
+		states = model.states
 
-		self.state = model.states.first
-		self.products = model.products
+		// Default basket
+		state = states.first!
+		basket = products
 	}
 }
 
@@ -58,19 +67,16 @@ extension BasketViewModel {
 	}
 	
 	var address: String {
-		guard let state = BasketViewModel.shared.state else {
-			return "N/A"
-		}
 		return "\(state.name), \(state.code)"
 	}
 	
 	var unitsTotalAmountString: String {
-		let result = Calculator.shared.unitsTotalAmount(products)
+		let result = Calculator.shared.unitsTotalAmount(basket)
 		return result.formattedWithSeparator
 	}
 	
 	var unitsTotalAmount: Float {
-		return Calculator.shared.unitsTotalAmount(products)
+		return Calculator.shared.unitsTotalAmount(basket)
 	}
 	
 	var discountRate: Float {
@@ -83,7 +89,7 @@ extension BasketViewModel {
 	}
 	
 	var taxRate: Float {
-		return BasketViewModel.shared.state?.rate ?? 0
+		return BasketViewModel.shared.state.rate
 	}
 	
 	var taxAmount: String {
@@ -119,7 +125,7 @@ extension BasketViewModel {
 		
 		var rows: Int {
 			switch self {
-			case .product: return BasketViewModel.shared.products.count
+			case .product: return BasketViewModel.shared.basket.count
 			case .address: return 1
 			case .breakdown: return SectionBreakdown.all.count
 			case .total: return 1

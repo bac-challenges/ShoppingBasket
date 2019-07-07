@@ -31,18 +31,20 @@
 
 import UIKit
 
-class BasketController: UIViewController {
+class BasketController: UITableViewController {
 	
 	// Model
 	private var model = BasketViewModel.shared
-	
-	// UI
-	private var tableView = UITableView()
 	
 	// Life cycle
 	override func viewDidLoad() {
 		super.viewDidLoad()
 		setupView()
+	}
+	
+	override func viewWillAppear(_ animated: Bool) {
+		super.viewWillAppear(animated)
+		self.tableView.reloadData()
 	}
 }
 
@@ -57,40 +59,30 @@ extension  BasketController {
 		tableView.contentInsetAdjustmentBehavior = .automatic
 		tableView.rowHeight = UITableView.automaticDimension
 		tableView.estimatedRowHeight = 70
-		tableView.dataSource = self
-		view.addSubview(tableView)
-		setupLayout()
-	}
-	
-	private func setupLayout() {
-		tableView.anchor(top: view.topAnchor,
-						 bottom: view.bottomAnchor,
-						 left: view.leftAnchor,
-						 right: view.rightAnchor)
 	}
 }
 
 // MARK: - UITableViewDataSource
-extension BasketController: UITableViewDataSource {
+extension BasketController {
 	
-	func numberOfSections(in tableView: UITableView) -> Int {
+	override func numberOfSections(in tableView: UITableView) -> Int {
 		return BasketViewModel.Section.all.count
 	}
 	
-	func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+	override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
 		guard let section = BasketViewModel.Section(rawValue: section) else {
 			return 0
 		}
 		return section.rows
 	}
 	
-	func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+	override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
 		
 		let section = BasketViewModel.Section.all[indexPath.section]
 		switch section {
 		case .product:
 			if let cell = tableView.dequeueReusableCell(withIdentifier: ProductCell.identifier, for: indexPath) as? ProductCell {
-				let product = model.products[indexPath.row]
+				let product = model.basket[indexPath.row]
 				cell.textLabel?.text = product.name
 				cell.detailTextLabel?.text = model.unitTotalAmount(product)
 				return cell
