@@ -63,18 +63,16 @@ class BasketDataSource: NSObject, UITableViewDataSource {
 // MARK: - Helpers
 extension BasketDataSource {
 	func configureGenericCell(section: Section, tableView: UITableView, indexPath: IndexPath) -> UITableViewCell {
-		if let rowCase = section.caseForRow(row: indexPath.row) {
-			let cell = tableView.dequeueReusableCell(withIdentifier: rowCase.identifier, for: indexPath)
-			cell.textLabel?.text = rowCase.title
-			cell.accessoryType = rowCase.accessoryType
-			cell.selectionStyle = rowCase.selectionStyle
+		if let row = section.caseForRow(row: indexPath.row),
+		   let cell = tableView.dequeueReusableCell(withIdentifier: row.identifier, for: indexPath) as? BasketGenericCell {
+			cell.textLabel?.text = row.title
+			cell.configure(row)
 			return cell
 		}
 		return UITableViewCell(style: .value1, reuseIdentifier: nil)
 	}
 	
 	func configureProductCell(product: Product, section: Section, tableView: UITableView, indexPath: IndexPath) -> UITableViewCell {
-		
 		if let cell = tableView.dequeueReusableCell(withIdentifier: BasketProductCell.identifier,
 													for: indexPath) as? BasketProductCell {
 			cell.textLabel?.text = product.name

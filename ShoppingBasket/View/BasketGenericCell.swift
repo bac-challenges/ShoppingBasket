@@ -35,7 +35,6 @@ class BasketGenericCell: UITableViewCell, ReusableCell {
 	
 	override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
 		super.init(style: .value1, reuseIdentifier: nil)
-		setupView()
 	}
 	
 	required init?(coder aDecoder: NSCoder) {
@@ -43,8 +42,10 @@ class BasketGenericCell: UITableViewCell, ReusableCell {
 	}
 }
 
-// MARK: - UI
-extension  BasketGenericCell {
-	private func setupView() {
-	}
+// MARK: - Configurable
+extension  BasketGenericCell: Configurable {
+	func configure(_ item: Row) {
+		accessoryType = item.accessoryType
+		selectionStyle = item.selectionStyle
+	}	
 }
