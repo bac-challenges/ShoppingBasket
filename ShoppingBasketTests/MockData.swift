@@ -20,9 +20,9 @@
 //	OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 //	SOFTWARE.
 //
-//	ID: D9E38171-94B3-48ED-A5DF-314FCF160022
+//	ID: 02EF6F01-253B-4B1D-8649-766C8B0D9299
 //
-//	Pkg: ShoppingBasket
+//	Pkg: ShoppingBasketTests
 //
 //	Swift: 5.0 
 //
@@ -30,32 +30,12 @@
 //
 
 import Foundation
+@testable import ShoppingBasket
 
-public struct FileManager {
-	
-	// Response object
-	public struct Response: Codable {
-		let states: [State]
-		let products: [Product]
-		let discounts: [Discount]
-	}
-	
-	// Singleton
-	public static let shared = FileManager()
-	
-	// Get sample data
-	@discardableResult
-	public func loadJson() -> Response? {
-		if let url = Bundle.main.url(forResource: "data-source", withExtension: "json") {
-			do {
-				let data = try Data(contentsOf: url)
-				let decoder = JSONDecoder()
-				let response = try decoder.decode(Response.self, from: data)
-				return response
-			} catch {
-				print("error:\(error)")
-			}
-		}
-		return nil
-	}
-}
+let unitPrice: Float = 100
+let unitCount = 10
+
+let calc = Calculator()
+
+let product = Product(name: "Product", units: unitCount, price: unitPrice)
+let products = Array(repeating: product, count: unitCount)
