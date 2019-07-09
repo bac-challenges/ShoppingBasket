@@ -48,6 +48,27 @@ class BasketController: UITableViewController {
 	}
 }
 
+// MARK: - Actions
+extension BasketController {
+	@objc func addProduct(sender: UIBarButtonItem) {
+		let productController = UINavigationController(rootViewController: ProductController())
+		navigationController?.present(productController, animated: true, completion: nil)
+	}
+	
+	@objc func showEditing(sender: UIBarButtonItem) {
+		if(self.tableView.isEditing == true)
+		{
+			self.tableView.setEditing(false, animated: true)
+			self.navigationItem.rightBarButtonItem?.title = "Edit"
+		}
+		else
+		{
+			self.tableView.setEditing(true, animated: true)
+			self.navigationItem.rightBarButtonItem?.title = "Done"
+		}
+	}
+}
+
 // MARK: - UI
 extension  BasketController {
 	private func setupView() {
@@ -55,10 +76,46 @@ extension  BasketController {
 		tableView = UITableView(frame: CGRect.zero, style: .grouped)
 		tableView.register(GenericCell.self, forCellReuseIdentifier: GenericCell.identifier)
 		tableView.register(ProductCell.self, forCellReuseIdentifier: ProductCell.identifier)
-		tableView.separatorStyle = .none
+		tableView.separatorStyle = .singleLine
 		tableView.contentInsetAdjustmentBehavior = .automatic
 		tableView.rowHeight = UITableView.automaticDimension
 		tableView.estimatedRowHeight = 70
+		tableView.allowsSelection = false
+		tableView.isEditing = false
+		
+		navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .edit,
+														   target: self,
+														   action: #selector(showEditing))
+		
+		navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add,
+															target: self,
+															action: #selector(addProduct))
+	}
+}
+
+// MARK: - UITableViewDelegate
+extension BasketController {
+	
+	override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+		let section = BasketViewModel.Section.all[indexPath.section]
+		if section == .address {
+			navigationController?.pushViewController(StatesController(), animated: true)
+		}
+	}
+	
+	override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
+		let section = BasketViewModel.Section.all[indexPath.section]
+		if let row = section.caseForRow(row: indexPath.row) {
+			return row.canEdit
+		}
+		return false
+	}
+	
+	override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+		if (editingStyle == .delete) {
+			model.basket.remove(at: indexPath.row)
+			tableView.deleteRows(at: [indexPath], with: .fade)
+		}
 	}
 }
 
@@ -94,6 +151,6 @@ extension BasketController {
 			
 			return cell
 		}
-		return UITableViewCell(style: .value1, reuseIdentifier: nil)
+		fatalError("Invalid Section")
 	}
 }

@@ -35,15 +35,24 @@ public struct Calculator {
 	
 	public static let shared = Calculator()
 	
+	/// Calculate units cost
+	/// - Parameters:
+	///		- unit: Unit object
 	func unitTotalAmount(_ unit: Product) -> Float {
 		return unit.price * Float(unit.units)
 	}
 	
+	/// Calculate total units cost before tax and discount
+	/// - Parameters:
+	///		- units: Unit object collection
 	func unitsTotalAmount(_ units: [Product]) -> Float {
 		return units.compactMap { unitTotalAmount($0) }
 					.reduce(0) { $0 + $1 }
 	}
 	
+	/// Get discount rate
+	/// - Parameters:
+	///		- amount: Total amount before tax and discount
 	func discountRate(_ amount: Float) -> Float {
 		switch amount {
 		case 0...1000:		return 0
@@ -55,14 +64,25 @@ public struct Calculator {
 		}
 	}
 	
+	/// Calculate discount
+	/// - Parameters:
+	///		- amount: Total amount before tax and discount
 	func discountAmount(_ amount: Float) -> Float {
 		return amount * discountRate(amount)%
 	}
 	
+	/// Calculate amount of tax
+	/// - Parameters:
+	///		- amount: Total amount before tax and discount
+	/// 	- rate: Tax rate
 	func taxAmount(_ amount: Float, rate: Float) -> Float {
 		return amount * rate%
 	}
 	
+	/// Calculate basket's total amount
+	/// - Parameters:
+	///		- amount: Total amount before tax and discount
+	/// 	- rate: Tax rate
 	func totalAmount(_ amount: Float, rate: Float) -> Float {
 		let discount = discountAmount(amount)
 		let discontedAmount =  amount - discount

@@ -20,21 +20,44 @@
 //	OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 //	SOFTWARE.
 //
-//	ID: 09B53B51-8676-4751-BC4B-26D31135EFDF
+//	ID: 5FB65BB8-7C2E-4560-B81E-FAEE2C810E0F
 //
 //	Pkg: ShoppingBasket
 //
-//	Swift: 5
+//	Swift: 5.0 
 //
 //	MacOS: 10.15
 //
 
-import Foundation
+import UIKit
 
-extension Formatter {
-	static let withSeparator: NumberFormatter = {
-		let formatter = NumberFormatter()
-		formatter.numberStyle = .currency
-		return formatter
+class DualLabelView: UIStackView {
+
+	public lazy var textLabel = UILabel()
+	public lazy var detailLabel: UILabel = {
+		let label = UILabel()
+		label.textColor = .lightGray
+		label.textAlignment = .right
+		return label
 	}()
+	
+	override init(frame: CGRect) {
+		super.init(frame: frame)
+		setupView()
+	}
+	
+	required init(coder: NSCoder) {
+		fatalError("init(coder:) has not been implemented")
+	}
+}
+
+// MARK: - UI
+extension DualLabelView {
+	private func setupView() {
+		preservesSuperviewLayoutMargins = true
+		axis = .horizontal
+		spacing = 5
+		addArrangedSubview(textLabel)
+		addArrangedSubview(detailLabel)
+	}
 }
