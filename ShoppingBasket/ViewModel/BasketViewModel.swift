@@ -31,7 +31,7 @@
 
 import UIKit
 
-struct BasketViewModel {
+class BasketViewModel {
 	
 	// Singleton
 	public static let shared = BasketViewModel()
@@ -55,7 +55,7 @@ struct BasketViewModel {
 
 		// Basket
 		state = states.first!
-		basket = [products.first!]
+		basket = products
 	}
 }
 

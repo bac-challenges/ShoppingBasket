@@ -20,7 +20,7 @@
 //	OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 //	SOFTWARE.
 //
-//	ID: 33781857-C3CC-4BC1-8DE6-C7E896E6A4C3
+//	ID: E0086E3A-A346-4EE8-91E1-2C26C3A048F0
 //
 //	Pkg: ShoppingBasket
 //
@@ -31,80 +31,54 @@
 
 import UIKit
 
-class BasketController: UITableViewController {
+class StatesController: UITableViewController {
 	
 	// Model
 	private var model = BasketViewModel.shared
-	
-	// Life cycle
-	override func viewDidLoad() {
-		super.viewDidLoad()
+
+    override func viewDidLoad() {
+        super.viewDidLoad()
 		setupView()
-	}
-	
-	override func viewWillAppear(_ animated: Bool) {
-		super.viewWillAppear(animated)
-		self.tableView.reloadData()
-	}
+    }
 }
 
 // MARK: - UI
-extension  BasketController {
+extension  StatesController {
 	private func setupView() {
-		title = "Basket"
+		title = "States"
 		tableView = UITableView(frame: CGRect.zero, style: .grouped)
 		tableView.register(GenericCell.self, forCellReuseIdentifier: GenericCell.identifier)
-		tableView.register(ProductCell.self, forCellReuseIdentifier: ProductCell.identifier)
-		tableView.separatorStyle = .none
-		tableView.contentInsetAdjustmentBehavior = .automatic
-		tableView.rowHeight = UITableView.automaticDimension
-		tableView.estimatedRowHeight = 70
 	}
 }
 
-// MARK: - UITableViewDelegate
-extension BasketController {
-	
+// MARK: UITableViewDelegate
+extension StatesController {
 	override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-		let section = BasketViewModel.Section.all[indexPath.section]
-		if section == .address {
-			navigationController?.pushViewController(StatesController(), animated: true)
-		}
+		model.state = model.states[indexPath.row]
+		navigationController?.popViewController(animated: true)
 	}
 }
 
-// MARK: - UITableViewDataSource
-extension BasketController {
-	
+// MARK: UITableViewDataSource
+extension StatesController {
 	override func numberOfSections(in tableView: UITableView) -> Int {
-		return BasketViewModel.Section.all.count
+		return 1
 	}
 	
 	override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-		guard let section = BasketViewModel.Section(rawValue: section) else {
-			return 0
-		}
-		return section.rows
+		return model.states.count
 	}
 	
 	override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
 		
-		let section = BasketViewModel.Section.all[indexPath.section]
+		let state = model.states[indexPath.row]
 		
-		if let row = section.caseForRow(row: indexPath.row) {
-		   let cell = tableView.dequeueReusableCell(withIdentifier: row.identifier, for: indexPath)
-			cell.accessoryType = row.accessoryType
-			cell.selectionStyle = row.selectionStyle
-			cell.textLabel?.text = row.title
-			cell.detailTextLabel?.text = row.detail
-			cell.detailTextLabel?.textColor = row.detailColor
-			
-			if let cell = cell as? ProductCell {
-				cell.configure(model.basket[indexPath.row])
-			}
-			
-			return cell
-		}
-		fatalError("Invalid Section")
+		let cell = tableView.dequeueReusableCell(withIdentifier: GenericCell.identifier, for: indexPath)
+		cell.accessoryType = state.code == model.state.code ? .checkmark : .none
+		cell.accessoryView?.tintColor = #colorLiteral(red: 0.4648197889, green: 0.6529648304, blue: 0.5710337758, alpha: 1)
+		cell.selectionStyle = .none
+		cell.textLabel?.text = state.name
+		cell.detailTextLabel?.text = "\(state.rate)%"
+		return cell
 	}
 }

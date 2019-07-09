@@ -2,10 +2,7 @@
 	"products": [
 	{"name": "Product A", "price": 12.50, "units":    30},
 	{"name": "Product B", "price": 43.99, "units":   100},
-	{"name": "Product C", "price": 28.74, "units":  1000},
-	{"name": "Product D", "price": 75.10, "units":   700},
-	{"name": "Product E", "price": 32.85, "units":     5},
-	{"name": "Product F", "price": 67.39, "units":   300}],
+	{"name": "Product C", "price": 28.74, "units":  1000}],
 	
 	"discounts": [
 	{"amount":  1000, "rate":  0},
