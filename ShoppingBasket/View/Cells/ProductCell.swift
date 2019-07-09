@@ -34,73 +34,24 @@ import UIKit
 class ProductCell: UITableViewCell, ReusableCell {
 
 	// UI
+	private lazy var container: UIStackView = {
+		let view = UIStackView(arrangedSubviews: [titleLabel, containerLeft])
+		view.alignment = .firstBaseline
+		return view
+	}()
+	
 	private lazy var titleLabel = UILabel()
 	
-	private lazy var container: UIStackView = {
-		let view = UIStackView(arrangedSubviews: [unitCountContainer, bottomSubContainer])
+	private lazy var containerLeft: UIStackView = {
+		let view = UIStackView(arrangedSubviews: [unitCount, unitPrice, totalPrice])
 		view.axis = .vertical
 		view.spacing = 10
 		return view
 	}()
 	
-	private lazy var unitCountContainer: UIStackView = {
-		let view = UIStackView(arrangedSubviews: [unitCountLablel, unitCountValueLablel])
-		view.axis = .horizontal
-		view.spacing = 5
-		return view
-	}()
-	
-	private lazy var unitCountLablel = UILabel()
-	private lazy var unitCountValueLablel: UILabel = {
-		let label = UILabel()
-		label.textColor = .lightGray
-		label.textAlignment = .right
-		return label
-	}()
-	
-	private lazy var bottomSubContainer: UIStackView = {
-		let view = UIStackView(arrangedSubviews: [unitContainer, totalContainer])
-		view.axis = .vertical
-		view.spacing = 5
-		return view
-	}()
-	
-	private lazy var unitContainer: UIStackView = {
-		let view = UIStackView(arrangedSubviews: [unitPriceLabel, unitPriceValueLabel])
-		view.axis = .horizontal
-		view.spacing = 5
-		return view
-	}()
-	
-	private lazy var unitPriceLabel = UILabel()
-	private lazy var unitPriceValueLabel: UILabel = {
-		let label = UILabel()
-		label.textColor = .lightGray
-		label.textAlignment = .right
-		return label
-	}()
-	
-	private lazy var totalContainer: UIStackView = {
-		let view = UIStackView(arrangedSubviews: [totalPriceLabel, totalPriceValueLabel])
-		view.axis = .horizontal
-		view.spacing = 5
-		return view
-	}()
-	
-	private lazy var totalPriceLabel = UILabel()
-	private lazy var totalPriceValueLabel: UILabel = {
-		let label = UILabel()
-		label.textColor = .lightGray
-		label.textAlignment = .right
-		return label
-	}()
-	
-	private lazy var separator: UIView = {
-		let view = UIView()
-		view.backgroundColor = .lightGray
-		view.alpha = 0.3
-		return view
-	}()
+	private lazy var unitCount = DualLabelView()
+	private lazy var unitPrice = DualLabelView()
+	private lazy var totalPrice = DualLabelView()
 	
 	// Init
 	override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
@@ -111,64 +62,52 @@ class ProductCell: UITableViewCell, ReusableCell {
 	required init?(coder aDecoder: NSCoder) {
 		super.init(coder: aDecoder)
 	}
-	
-	override func setSelected(_ selected: Bool, animated: Bool) {
-		super.setSelected(selected, animated: animated)
-		UIView.animate(withDuration: 0.3) {
-			self.backgroundColor = selected ? #colorLiteral(red: 0, green: 0.6566036344, blue: 1, alpha: 1):#colorLiteral(red: 1.0, green: 1.0, blue: 1.0, alpha: 1.0)
-			self.unitCountValueLablel.textColor = selected ? #colorLiteral(red: 1.0, green: 1.0, blue: 1.0, alpha: 1.0):.lightGray
-			self.unitPriceValueLabel.textColor = selected ? #colorLiteral(red: 1.0, green: 1.0, blue: 1.0, alpha: 1.0):.lightGray
-			self.totalPriceValueLabel.textColor = selected ? #colorLiteral(red: 1.0, green: 1.0, blue: 1.0, alpha: 1.0):.lightGray
-		}
-	}
-	
-	override func setEditing(_ editing: Bool, animated: Bool) {
-		super.setEditing(editing, animated: animated)
-	}
 }
 
 // MARK: - Configurable
 extension ProductCell: Configurable {
 	func configure(_ item: Product) {
 		titleLabel.text = item.name
-		unitCountLablel.text = "Unit:"
-		unitCountValueLablel.text = "x\(item.units)"
-		unitPriceLabel.text = "Unit Price:"
-		unitPriceValueLabel.text = "\(item.price.formattedWithSeparator)"
-		totalPriceLabel.text = "Unit Total:"
-		totalPriceValueLabel.text = "\((Float(item.units)*item.price).formattedWithSeparator)"
+		unitCount.textLabel.text = "Quantity:"
+		unitCount.detailLabel.text = "x\(item.units)"
+		unitPrice.textLabel.text = "Price:"
+		unitPrice.detailLabel.text = "\(item.price.formattedWithSeparator)"
+		totalPrice.textLabel.text = "Total:"
+		totalPrice.detailLabel.text = "\((Float(item.units)*item.price).formattedWithSeparator)"
 	}
 }
 
 // MARK: - UI
 extension ProductCell {
 	private func setupView() {
-		accessoryType = .none
 		selectionStyle = .none
 		preservesSuperviewLayoutMargins = true
-		addSubview(titleLabel)
 		addSubview(container)
-		addSubview(separator)
 		setupLayout()
 	}
 	
 	private func setupLayout() {
-		titleLabel.anchor(top: layoutMarginsGuide.topAnchor,
-						  paddingTop: 6,
-						  left: layoutMarginsGuide.leftAnchor,
-						  width: 100)
-		
 		container.anchor(top: layoutMarginsGuide.topAnchor,
 						 bottom: layoutMarginsGuide.bottomAnchor,
-						 left: titleLabel.rightAnchor,
-						 paddingLeft: 40,
-						 right: layoutMarginsGuide.rightAnchor)
-		
-		unitCountLablel.anchor(width: 80)
-		
-		separator.anchor(bottom: bottomAnchor,
 						 left: layoutMarginsGuide.leftAnchor,
-						 right: layoutMarginsGuide.rightAnchor,
-						 height: 1)
+						 right: layoutMarginsGuide.rightAnchor)
+	}
+}
+
+// MARK: - Actions
+extension ProductCell {
+	override func setSelected(_ selected: Bool, animated: Bool) {
+		super.setSelected(selected, animated: animated)
+		UIView.animate(withDuration: 0.3) {
+			self.backgroundColor = selected ? #colorLiteral(red: 0, green: 0.6566036344, blue: 1, alpha: 1):#colorLiteral(red: 1.0, green: 1.0, blue: 1.0, alpha: 1.0)
+			self.unitCount.detailLabel.textColor = selected ? #colorLiteral(red: 1.0, green: 1.0, blue: 1.0, alpha: 1.0):.lightGray
+			self.unitPrice.detailLabel.textColor = selected ? #colorLiteral(red: 1.0, green: 1.0, blue: 1.0, alpha: 1.0):.lightGray
+			self.totalPrice.detailLabel.textColor = selected ? #colorLiteral(red: 1.0, green: 1.0, blue: 1.0, alpha: 1.0):.lightGray
+		}
+	}
+	
+	override func setEditing(_ editing: Bool, animated: Bool) {
+		super.setEditing(editing, animated: animated)
+		container.anchor(paddingLeft: editing ? 260:0)
 	}
 }

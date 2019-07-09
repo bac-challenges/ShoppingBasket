@@ -76,7 +76,7 @@ extension  BasketController {
 		tableView = UITableView(frame: CGRect.zero, style: .grouped)
 		tableView.register(GenericCell.self, forCellReuseIdentifier: GenericCell.identifier)
 		tableView.register(ProductCell.self, forCellReuseIdentifier: ProductCell.identifier)
-		tableView.separatorStyle = .none
+		tableView.separatorStyle = .singleLine
 		tableView.contentInsetAdjustmentBehavior = .automatic
 		tableView.rowHeight = UITableView.automaticDimension
 		tableView.estimatedRowHeight = 70
@@ -90,8 +90,6 @@ extension  BasketController {
 		navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add,
 															target: self,
 															action: #selector(addProduct))
-		
-		
 	}
 }
 

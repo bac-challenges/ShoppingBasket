@@ -33,12 +33,31 @@ import UIKit
 
 class DualLabelView: UIStackView {
 
-    /*
-    // Only override draw() if you perform custom drawing.
-    // An empty implementation adversely affects performance during animation.
-    override func draw(_ rect: CGRect) {
-        // Drawing code
-    }
-    */
+	public lazy var textLabel = UILabel()
+	public lazy var detailLabel: UILabel = {
+		let label = UILabel()
+		label.textColor = .lightGray
+		label.textAlignment = .right
+		return label
+	}()
+	
+	override init(frame: CGRect) {
+		super.init(frame: frame)
+		setupView()
+	}
+	
+	required init(coder: NSCoder) {
+		fatalError("init(coder:) has not been implemented")
+	}
+}
 
+// MARK: - UI
+extension DualLabelView {
+	private func setupView() {
+		preservesSuperviewLayoutMargins = true
+		axis = .horizontal
+		spacing = 5
+		addArrangedSubview(textLabel)
+		addArrangedSubview(detailLabel)
+	}
 }
