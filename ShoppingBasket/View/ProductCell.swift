@@ -121,6 +121,10 @@ class ProductCell: UITableViewCell, ReusableCell {
 			self.totalPriceValueLabel.textColor = selected ? #colorLiteral(red: 1.0, green: 1.0, blue: 1.0, alpha: 1.0):.lightGray
 		}
 	}
+	
+	override func setEditing(_ editing: Bool, animated: Bool) {
+		super.setEditing(editing, animated: animated)
+	}
 }
 
 // MARK: - Configurable

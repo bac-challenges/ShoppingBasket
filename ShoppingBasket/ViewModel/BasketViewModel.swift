@@ -108,6 +108,7 @@ protocol Row {
 	var identifier: String { get }
 	var accessoryType: UITableViewCell.AccessoryType { get }
 	var selectionStyle: UITableViewCell.SelectionStyle { get }
+	var canEdit: Bool { get }
 	var title: String { get }
 	var detail: String { get }
 	var detailColor: UIColor { get }
@@ -170,6 +171,10 @@ extension BasketViewModel {
 		var detailColor: UIColor {
 			return .clear
 		}
+		
+		var canEdit: Bool {
+			return true
+		}
 	}
 	
 	// Section Address Row
@@ -199,6 +204,10 @@ extension BasketViewModel {
 		
 		var detailColor: UIColor {
 			return .lightGray
+		}
+		
+		var canEdit: Bool {
+			return false
 		}
 	}
 	
@@ -246,6 +255,10 @@ extension BasketViewModel {
 			case .tax: return #colorLiteral(red: 0.8549019694, green: 0.250980407, blue: 0.4784313738, alpha: 1)
 			}
 		}
+		
+		var canEdit: Bool {
+			return false
+		}
 	}
 	
 	// Section Total Row
@@ -275,6 +288,10 @@ extension BasketViewModel {
 		
 		var detailColor: UIColor {
 			return .lightGray
+		}
+		
+		var canEdit: Bool {
+			return false
 		}
 	}
 }

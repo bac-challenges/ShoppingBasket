@@ -54,6 +54,19 @@ extension BasketController {
 		let productController = UINavigationController(rootViewController: ProductController())
 		navigationController?.present(productController, animated: true, completion: nil)
 	}
+	
+	@objc func showEditing(sender: UIBarButtonItem) {
+		if(self.tableView.isEditing == true)
+		{
+			self.tableView.setEditing(false, animated: true)
+			self.navigationItem.rightBarButtonItem?.title = "Edit"
+		}
+		else
+		{
+			self.tableView.setEditing(true, animated: true)
+			self.navigationItem.rightBarButtonItem?.title = "Done"
+		}
+	}
 }
 
 // MARK: - UI
@@ -68,6 +81,11 @@ extension  BasketController {
 		tableView.rowHeight = UITableView.automaticDimension
 		tableView.estimatedRowHeight = 70
 		tableView.allowsSelection = false
+		tableView.isEditing = false
+		
+		navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .edit,
+														   target: self,
+														   action: #selector(showEditing))
 		
 		navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add,
 															target: self,
@@ -84,6 +102,21 @@ extension BasketController {
 		let section = BasketViewModel.Section.all[indexPath.section]
 		if section == .address {
 			navigationController?.pushViewController(StatesController(), animated: true)
+		}
+	}
+	
+	override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
+		let section = BasketViewModel.Section.all[indexPath.section]
+		if let row = section.caseForRow(row: indexPath.row) {
+			return row.canEdit
+		}
+		return false
+	}
+	
+	override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+		if (editingStyle == .delete) {
+			model.basket.remove(at: indexPath.row)
+			tableView.deleteRows(at: [indexPath], with: .fade)
 		}
 	}
 }
