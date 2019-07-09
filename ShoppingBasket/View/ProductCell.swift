@@ -111,6 +111,16 @@ class ProductCell: UITableViewCell, ReusableCell {
 	required init?(coder aDecoder: NSCoder) {
 		super.init(coder: aDecoder)
 	}
+	
+	override func setSelected(_ selected: Bool, animated: Bool) {
+		super.setSelected(selected, animated: animated)
+		UIView.animate(withDuration: 0.3) {
+			self.backgroundColor = selected ? #colorLiteral(red: 0, green: 0.6566036344, blue: 1, alpha: 1):#colorLiteral(red: 1.0, green: 1.0, blue: 1.0, alpha: 1.0)
+			self.unitCountValueLablel.textColor = selected ? #colorLiteral(red: 1.0, green: 1.0, blue: 1.0, alpha: 1.0):.lightGray
+			self.unitPriceValueLabel.textColor = selected ? #colorLiteral(red: 1.0, green: 1.0, blue: 1.0, alpha: 1.0):.lightGray
+			self.totalPriceValueLabel.textColor = selected ? #colorLiteral(red: 1.0, green: 1.0, blue: 1.0, alpha: 1.0):.lightGray
+		}
+	}
 }
 
 // MARK: - Configurable
@@ -147,7 +157,7 @@ extension ProductCell {
 		container.anchor(top: layoutMarginsGuide.topAnchor,
 						 bottom: layoutMarginsGuide.bottomAnchor,
 						 left: titleLabel.rightAnchor,
-						 paddingLeft: 60,
+						 paddingLeft: 40,
 						 right: layoutMarginsGuide.rightAnchor)
 		
 		unitCountLablel.anchor(width: 80)

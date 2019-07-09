@@ -48,6 +48,14 @@ class BasketController: UITableViewController {
 	}
 }
 
+// MARK: - Actions
+extension BasketController {
+	@objc func addProduct(sender: UIBarButtonItem) {
+		let productController = UINavigationController(rootViewController: ProductController())
+		navigationController?.present(productController, animated: true, completion: nil)
+	}
+}
+
 // MARK: - UI
 extension  BasketController {
 	private func setupView() {
@@ -59,6 +67,13 @@ extension  BasketController {
 		tableView.contentInsetAdjustmentBehavior = .automatic
 		tableView.rowHeight = UITableView.automaticDimension
 		tableView.estimatedRowHeight = 70
+		tableView.allowsSelection = false
+		
+		navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add,
+															target: self,
+															action: #selector(addProduct))
+		
+		
 	}
 }
 

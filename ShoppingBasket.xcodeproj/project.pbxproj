@@ -30,6 +30,7 @@
 		60F2125E22D4527C0082745A /* Prototype.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 60F2126022D4527C0082745A /* Prototype.storyboard */; };
 		60F2126622D4748D0082745A /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = 60F2126522D4748C0082745A /* README.md */; };
 		60F2126822D489120082745A /* StatesController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60F2126722D489120082745A /* StatesController.swift */; };
+		60F2126A22D49CE90082745A /* ProductController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60F2126922D49CE90082745A /* ProductController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -70,6 +71,7 @@
 		60F2125F22D4527C0082745A /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Prototype.storyboard; sourceTree = "<group>"; };
 		60F2126522D4748C0082745A /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		60F2126722D489120082745A /* StatesController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatesController.swift; sourceTree = "<group>"; };
+		60F2126922D49CE90082745A /* ProductController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -156,6 +158,7 @@
 			children = (
 				60CF6EE322D20F3100808A9D /* BasketController.swift */,
 				60F2126722D489120082745A /* StatesController.swift */,
+				60F2126922D49CE90082745A /* ProductController.swift */,
 				60BDB99C22D1B88C006214A2 /* ProductCell.swift */,
 				60BDB99A22D1B86F006214A2 /* GenericCell.swift */,
 			);
@@ -347,6 +350,7 @@
 				60012A1122D143B4008B5CA7 /* Formatter.swift in Sources */,
 				60CF6EE222D20E1500808A9D /* BasketViewModel.swift in Sources */,
 				60012A0F22D143B4008B5CA7 /* UIView.swift in Sources */,
+				60F2126A22D49CE90082745A /* ProductController.swift in Sources */,
 				60BDB9A322D1B92E006214A2 /* FileManager.swift in Sources */,
 				60F2126822D489120082745A /* StatesController.swift in Sources */,
 				60012A1522D143B4008B5CA7 /* Configurable.swift in Sources */,

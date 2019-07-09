@@ -5,7 +5,9 @@
 ### General
 
 - Swift version **5.0**
+- iOS 12.2
 - XCode 10.2.1
+- MacOS: 10.15
 - Code based UI
 - No external libraries
 
@@ -14,3 +16,4 @@
 
 ### Test Coverage
 -  **`CalculatorTests`** 
+
