@@ -55,7 +55,7 @@ class BasketViewModel {
 
 		// Basket
 		state = states.first!
-		basket = products
+		basket = [products.first!]
 	}
 }
 
