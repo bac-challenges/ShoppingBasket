@@ -33,13 +33,25 @@ import UIKit
 
 class StatesController: UITableViewController {
 	
-	// Model
-	private var model = BasketViewModel.shared
+	private lazy var model = BasketViewModel.shared
+	private lazy var state: State = model.state
 
     override func viewDidLoad() {
         super.viewDidLoad()
 		setupView()
     }
+}
+
+// MARK: - Actions
+extension StatesController {
+	@objc func selectState() {
+		model.state = state
+		navigationController?.popViewController(animated: true)
+	}
+	
+	@objc func cancel() {
+		navigationController?.popViewController(animated: true)
+	}
 }
 
 // MARK: - UI
@@ -48,14 +60,30 @@ extension  StatesController {
 		title = "States"
 		tableView = UITableView(frame: CGRect.zero, style: .grouped)
 		tableView.register(GenericCell.self, forCellReuseIdentifier: GenericCell.identifier)
+		
+		let leftButtonItem = UIBarButtonItem.init(
+			title: "Cancel",
+			style: .done,
+			target: self,
+			action:  #selector(cancel)
+		)
+		self.navigationItem.leftBarButtonItem = leftButtonItem
+		
+		let rightButtonItem = UIBarButtonItem.init(
+			title: "Select",
+			style: .done,
+			target: self,
+			action: #selector(selectState)
+		)
+		self.navigationItem.rightBarButtonItem = rightButtonItem
 	}
 }
 
 // MARK: UITableViewDelegate
 extension StatesController {
 	override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-		model.state = model.states[indexPath.row]
-		navigationController?.popViewController(animated: true)
+		state = model.states[indexPath.row]
+		tableView.reloadData()
 	}
 }
 
@@ -74,7 +102,7 @@ extension StatesController {
 		let state = model.states[indexPath.row]
 		
 		let cell = tableView.dequeueReusableCell(withIdentifier: GenericCell.identifier, for: indexPath)
-		cell.accessoryType = state.code == model.state.code ? .checkmark : .none
+		cell.accessoryType = state.code == self.state.code ? .checkmark : .none
 		cell.accessoryView?.tintColor = #colorLiteral(red: 0.4648197889, green: 0.6529648304, blue: 0.5710337758, alpha: 1)
 		cell.selectionStyle = .none
 		cell.textLabel?.text = state.name
