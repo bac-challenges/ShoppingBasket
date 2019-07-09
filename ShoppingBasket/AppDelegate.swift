@@ -40,7 +40,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 		window = UIWindow(frame: UIScreen.main.bounds)
 		window?.makeKeyAndVisible()
 		window?.rootViewController = UINavigationController(rootViewController: BasketController())
-		window?.tintColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1)
+		window?.tintColor = .black
 		return true
 	}
 }

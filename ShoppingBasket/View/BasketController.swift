@@ -94,6 +94,6 @@ extension BasketController {
 			
 			return cell
 		}
-		return UITableViewCell(style: .value1, reuseIdentifier: nil)
+		fatalError("Invalid Section")
 	}
 }

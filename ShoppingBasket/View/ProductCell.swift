@@ -33,24 +33,30 @@ import UIKit
 
 class ProductCell: UITableViewCell, ReusableCell {
 
+	// UI
 	private lazy var titleLabel = UILabel()
 	
 	private lazy var container: UIStackView = {
-		let view = UIStackView(arrangedSubviews: [topSubContainer, bottomSubContainer])
+		let view = UIStackView(arrangedSubviews: [unitCountContainer, bottomSubContainer])
 		view.axis = .vertical
 		view.spacing = 10
 		return view
 	}()
 	
-	private lazy var topSubContainer: UIStackView = {
-		let view = UIStackView(arrangedSubviews: [textField, stepper])
+	private lazy var unitCountContainer: UIStackView = {
+		let view = UIStackView(arrangedSubviews: [unitCountLablel, unitCountValueLablel])
 		view.axis = .horizontal
 		view.spacing = 5
 		return view
 	}()
 	
-	private lazy var textField = UITextField()
-	private lazy var stepper = UIStepper()
+	private lazy var unitCountLablel = UILabel()
+	private lazy var unitCountValueLablel: UILabel = {
+		let label = UILabel()
+		label.textColor = .lightGray
+		label.textAlignment = .right
+		return label
+	}()
 	
 	private lazy var bottomSubContainer: UIStackView = {
 		let view = UIStackView(arrangedSubviews: [unitContainer, totalContainer])
@@ -111,11 +117,8 @@ class ProductCell: UITableViewCell, ReusableCell {
 extension ProductCell: Configurable {
 	func configure(_ item: Product) {
 		titleLabel.text = item.name
-		
-		textField.text = "\(item.units)"
-		textField.textAlignment = .right
-		textField.borderStyle = .roundedRect
-		
+		unitCountLablel.text = "Unit:"
+		unitCountValueLablel.text = "x\(item.units)"
 		unitPriceLabel.text = "Unit Price:"
 		unitPriceValueLabel.text = "\(item.price.formattedWithSeparator)"
 		totalPriceLabel.text = "Unit Total:"
@@ -138,13 +141,16 @@ extension ProductCell {
 	private func setupLayout() {
 		titleLabel.anchor(top: layoutMarginsGuide.topAnchor,
 						  paddingTop: 6,
-						  left: layoutMarginsGuide.leftAnchor)
+						  left: layoutMarginsGuide.leftAnchor,
+						  width: 100)
 		
 		container.anchor(top: layoutMarginsGuide.topAnchor,
 						 bottom: layoutMarginsGuide.bottomAnchor,
+						 left: titleLabel.rightAnchor,
+						 paddingLeft: 60,
 						 right: layoutMarginsGuide.rightAnchor)
 		
-		textField.anchor(width: 80)
+		unitCountLablel.anchor(width: 80)
 		
 		separator.anchor(bottom: bottomAnchor,
 						 left: layoutMarginsGuide.leftAnchor,
