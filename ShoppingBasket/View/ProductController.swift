@@ -34,17 +34,11 @@ import UIKit
 class ProductController: UITableViewController {
 
 	private lazy var model = BasketViewModel.shared
-	private var products = [Product]()
+	private lazy var products = model.products
+	private var basket = [Product]()
 	
     override func viewDidLoad() {
 		super.viewDidLoad()
-		setupView()
-	}
-}
-
-// MARK: - Actions
-extension ProductController {
-	@objc func selectProduct() {
 		
 		// Filter duplicates
 		model.basket.forEach { product in
@@ -52,9 +46,17 @@ extension ProductController {
 				$0.name != product.name
 			}
 		}
+		tableView.reloadData()
 		
+		setupView()
+	}
+}
+
+// MARK: - Actions
+extension ProductController {
+	@objc func selectProduct() {
 		// Add new products to basket
-		model.basket.append(contentsOf: products)
+		model.basket.append(contentsOf: basket)
 		
 		navigationController?.dismiss(animated: true, completion: nil)
 	}
@@ -88,13 +90,13 @@ extension ProductController {
 	override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
 		let cell = tableView.cellForRow(at: indexPath)
 		cell?.isSelected = true
-		products.append(model.products[indexPath.row])
+		basket.append(model.products[indexPath.row])
 	}
 	
 	override func tableView(_ tableView: UITableView, didDeselectRowAt indexPath: IndexPath) {
 		let cell = tableView.cellForRow(at: indexPath)
 		cell?.isSelected = false
-		products = products.filter {
+		basket = basket.filter {
 			$0.name != model.products[indexPath.row].name
 		}
 	}
@@ -107,12 +109,12 @@ extension ProductController {
 	}
 	
 	override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-		return model.products.count
+		return products.count
 	}
 	
 	override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
 		if let cell = tableView.dequeueReusableCell(withIdentifier: ProductCell.identifier, for: indexPath) as? ProductCell {
-			cell.configure(model.products[indexPath.row])
+			cell.configure(products[indexPath.row])
 			return cell
 		}
 		fatalError("Invalid Section")
